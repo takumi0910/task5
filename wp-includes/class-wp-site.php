@@ -67,7 +67,7 @@ final class WP_Site {
 	 * The date on which the site was created or registered.
 	 *
 	 * @since 4.5.0
-	 * @var string Date in mysqli's datetime format.
+	 * @var string Date in mysql's datetime format.
 	 */
 	public $registered = '0000-00-00 00:00:00';
 
@@ -75,7 +75,7 @@ final class WP_Site {
 	 * The date and time on which site settings were last updated.
 	 *
 	 * @since 4.5.0
-	 * @var string Date in mysqli's datetime format.
+	 * @var string Date in mysql's datetime format.
 	 */
 	public $last_updated = '0000-00-00 00:00:00';
 

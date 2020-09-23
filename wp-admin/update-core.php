@@ -57,7 +57,7 @@ function list_core_update( $update ) {
 	$submit        = __( 'Update Now' );
 	$form_action   = 'update-core.php?action=do-core-upgrade';
 	$php_version   = phpversion();
-	$mysqli_version = $wpdb->db_version();
+	$mysql_version = $wpdb->db_version();
 	$show_buttons  = true;
 	if ( 'development' === $update->response ) {
 		$message = __( 'You are using a development version of WordPress. You can update to the latest nightly build automatically:' );
@@ -69,10 +69,10 @@ function list_core_update( $update ) {
 			$form_action = 'update-core.php?action=do-core-reinstall';
 		} else {
 			$php_compat = version_compare( $php_version, $update->php_version, '>=' );
-			if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysqli ) ) {
-				$mysqli_compat = true;
+			if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysql ) ) {
+				$mysql_compat = true;
 			} else {
-				$mysqli_compat = version_compare( $mysqli_version, $update->mysqli_version, '>=' );
+				$mysql_compat = version_compare( $mysql_version, $update->mysql_version, '>=' );
 			}
 
 			$version_url = sprintf(
@@ -93,16 +93,16 @@ function list_core_update( $update ) {
 				$php_update_message .= '</p><p><em>' . $annotation . '</em>';
 			}
 
-			if ( ! $mysqli_compat && ! $php_compat ) {
+			if ( ! $mysql_compat && ! $php_compat ) {
 				$message = sprintf(
-					/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required PHP version number, 4: Minimum required mysqli version number, 5: Current PHP version number, 6: Current mysqli version number. */
-					__( 'You cannot update because <a href="%1$s">WordPress %2$s</a> requires PHP version %3$s or higher and mysqli version %4$s or higher. You are running PHP version %5$s and mysqli version %6$s.' ),
+					/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required PHP version number, 4: Minimum required mysql version number, 5: Current PHP version number, 6: Current mysql version number. */
+					__( 'You cannot update because <a href="%1$s">WordPress %2$s</a> requires PHP version %3$s or higher and mysql version %4$s or higher. You are running PHP version %5$s and mysql version %6$s.' ),
 					$version_url,
 					$update->current,
 					$update->php_version,
-					$update->mysqli_version,
+					$update->mysql_version,
 					$php_version,
-					$mysqli_version
+					$mysql_version
 				) . $php_update_message;
 			} elseif ( ! $php_compat ) {
 				$message = sprintf(
@@ -113,14 +113,14 @@ function list_core_update( $update ) {
 					$update->php_version,
 					$php_version
 				) . $php_update_message;
-			} elseif ( ! $mysqli_compat ) {
+			} elseif ( ! $mysql_compat ) {
 				$message = sprintf(
-					/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required mysqli version number, 4: Current mysqli version number. */
-					__( 'You cannot update because <a href="%1$s">WordPress %2$s</a> requires mysqli version %3$s or higher. You are running version %4$s.' ),
+					/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required mysql version number, 4: Current mysql version number. */
+					__( 'You cannot update because <a href="%1$s">WordPress %2$s</a> requires mysql version %3$s or higher. You are running version %4$s.' ),
 					$version_url,
 					$update->current,
-					$update->mysqli_version,
-					$mysqli_version
+					$update->mysql_version,
+					$mysql_version
 				);
 			} else {
 				$message = sprintf(
@@ -130,7 +130,7 @@ function list_core_update( $update ) {
 					$version_string
 				);
 			}
-			if ( ! $mysqli_compat || ! $php_compat ) {
+			if ( ! $mysql_compat || ! $php_compat ) {
 				$show_buttons = false;
 			}
 		}
@@ -216,10 +216,10 @@ function dismissed_updates() {
  * @since 2.7.0
  *
  * @global string $required_php_version   The required PHP version string.
- * @global string $required_mysqli_version The required mysqli version string.
+ * @global string $required_mysql_version The required mysql version string.
  */
 function core_upgrade_preamble() {
-	global $required_php_version, $required_mysqli_version;
+	global $required_php_version, $required_mysql_version;
 
 	$wp_version = get_bloginfo( 'version' );
 	$updates    = get_core_updates();
@@ -235,7 +235,7 @@ function core_upgrade_preamble() {
 				'current'       => $wp_version . '.1.next.minor',
 				'version'       => $wp_version . '.1.next.minor',
 				'php_version'   => $required_php_version,
-				'mysqli_version' => $required_mysqli_version,
+				'mysql_version' => $required_mysql_version,
 			);
 			$should_auto_update  = $upgrader->should_update( 'core', $future_minor_update, ABSPATH );
 			if ( $should_auto_update ) {

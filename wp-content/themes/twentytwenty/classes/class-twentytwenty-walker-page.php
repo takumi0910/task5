@@ -139,7 +139,7 @@ if ( ! class_exists( 'TwentyTwenty_Walker_Page' ) ) {
 				}
 
 				$date_format = empty( $args['date_format'] ) ? '' : $args['date_format'];
-				$output     .= ' ' . mysqli2date( $date_format, $time );
+				$output     .= ' ' . mysql2date( $date_format, $time );
 			}
 		}
 	}

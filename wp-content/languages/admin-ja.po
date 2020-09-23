@@ -1812,8 +1812,8 @@ msgstr[0] "%s件の致命的な問題"
 #. translators: 1: Name of the library, 2: Number of version.
 #: wp-admin/includes/class-wp-site-health.php:1320
 #: wp-admin/includes/class-wp-site-health.php:1336
-msgid "WordPress&#8217; utf8mb4 support requires mysqli client library (%1$s) version %2$s or newer. Please contact your server administrator."
-msgstr "WordPress の utf8mb4 サポートには mysqli クライアントライブラリ (%1$s) バージョン %2$s 以上が必要です。サーバー管理者に連絡してください。"
+msgid "WordPress&#8217; utf8mb4 support requires mysql client library (%1$s) version %2$s or newer. Please contact your server administrator."
+msgstr "WordPress の utf8mb4 サポートには mysql クライアントライブラリ (%1$s) バージョン %2$s 以上が必要です。サーバー管理者に連絡してください。"
 
 #. translators: %s: Version number.
 #: wp-admin/includes/class-wp-site-health.php:1285
@@ -1822,8 +1822,8 @@ msgstr "WordPress の utf8mb4 サポートには MariaDB バージョン %s 以�
 
 #. translators: %s: Version number.
 #: wp-admin/includes/class-wp-site-health.php:1265
-msgid "WordPress&#8217; utf8mb4 support requires mysqli version %s or greater. Please contact your server administrator."
-msgstr "WordPress の utf8mb4 サポートには mysqli バージョン %s 以上が必要です。サーバー管理者に連絡してください。"
+msgid "WordPress&#8217; utf8mb4 support requires mysql version %s or greater. Please contact your server administrator."
+msgstr "WordPress の utf8mb4 サポートには mysql バージョン %s 以上が必要です。サーバー管理者に連絡してください。"
 
 #: wp-admin/includes/class-wp-site-health.php:1164
 msgid "Learn more about what WordPress requires to run."
@@ -2225,8 +2225,8 @@ msgid "HTTPS status"
 msgstr "HTTPS ステータス"
 
 #: wp-admin/includes/class-wp-site-health.php:2122
-msgid "mysqli utf8mb4 support"
-msgstr "mysqli utf8mb4 サポート"
+msgid "mysql utf8mb4 support"
+msgstr "mysql utf8mb4 サポート"
 
 #: wp-admin/includes/class-wp-site-health.php:2106
 msgid "PHP Extensions"
@@ -2459,18 +2459,18 @@ msgid "utf8mb4 requires a MariaDB update"
 msgstr "utf8mb4 を使用するには MariaDB の更新が必要です"
 
 #: wp-admin/includes/class-wp-site-health.php:1272
-msgid "Your mysqli version supports utf8mb4."
-msgstr "使用中の mysqli バージョンは utf8mb4 に対応しています。"
+msgid "Your mysql version supports utf8mb4."
+msgstr "使用中の mysql バージョンは utf8mb4 に対応しています。"
 
 #: wp-admin/includes/class-wp-site-health.php:1259
-msgid "utf8mb4 requires a mysqli update"
-msgstr "utf8mb4 を使用するには mysqli の更新が必要です"
+msgid "utf8mb4 requires a mysql update"
+msgstr "utf8mb4 を使用するには mysql の更新が必要です"
 
 #: wp-admin/includes/class-wp-site-health.php:1241
 msgid "UTF8MB4 is supported"
 msgstr "UTF8MB4 対応済みです"
 
-#. translators: 1: The database engine in use (mysqli or MariaDB). 2: Database
+#. translators: 1: The database engine in use (mysql or MariaDB). 2: Database
 #. server minimum version number.
 #: wp-admin/includes/class-wp-site-health.php:1199
 msgid "WordPress requires %1$s version %2$s or higher. Contact your web hosting company to correct this."
@@ -2480,7 +2480,7 @@ msgstr "WordPress では %1$s バージョン %2$s 以上が必要です。ホ�
 msgid "Severely outdated SQL server"
 msgstr "非常に古いデータベースサーバー"
 
-#. translators: 1: The database engine in use (mysqli or MariaDB). 2: Database
+#. translators: 1: The database engine in use (mysql or MariaDB). 2: Database
 #. server recommended version number.
 #: wp-admin/includes/class-wp-site-health.php:1182
 msgid "For optimal performance and security reasons, we recommend running %1$s version %2$s or higher. Contact your web hosting company to correct this."
@@ -3191,10 +3191,10 @@ msgid "You can update to <a href=\"%1$s\">WordPress %2$s</a> automatically:"
 msgstr "<a href=\"%1$s\">WordPress %2$s</a> に自動更新できます:"
 
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number,
-#. 3: Minimum required mysqli version number, 4: Current mysqli version number.
+#. 3: Minimum required mysql version number, 4: Current mysql version number.
 #: wp-admin/update-core.php:119 wp-admin/upgrade.php:119
-msgid "You cannot update because <a href=\"%1$s\">WordPress %2$s</a> requires mysqli version %3$s or higher. You are running version %4$s."
-msgstr "<a href=\"%1$s\">WordPress %2$s</a> は mysqli バージョン%3$s以上が必要なため、更新できません。現在のバージョンは %4$s です。"
+msgid "You cannot update because <a href=\"%1$s\">WordPress %2$s</a> requires mysql version %3$s or higher. You are running version %4$s."
+msgstr "<a href=\"%1$s\">WordPress %2$s</a> は mysql バージョン%3$s以上が必要なため、更新できません。現在のバージョンは %4$s です。"
 
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number,
 #. 3: Minimum required PHP version number, 4: Current PHP version number.
@@ -3229,10 +3229,10 @@ msgid "Create your first menu below."
 msgstr "最初のメニューを以下で作成しましょう。"
 
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number,
-#. 3: Minimum required mysqli version number, 4: Current mysqli version number.
+#. 3: Minimum required mysql version number, 4: Current mysql version number.
 #: wp-admin/install.php:277
-msgid "You cannot install because <a href=\"%1$s\">WordPress %2$s</a> requires mysqli version %3$s or higher. You are running version %4$s."
-msgstr "<a href=\"%1$s\">WordPress %2$s</a> は mysqli のバージョン %3$s 以上を必要とするため、インストールすることができません。現在実行中の mysqli バージョンは %4$s です。"
+msgid "You cannot install because <a href=\"%1$s\">WordPress %2$s</a> requires mysql version %3$s or higher. You are running version %4$s."
+msgstr "<a href=\"%1$s\">WordPress %2$s</a> は mysql のバージョン %3$s 以上を必要とするため、インストールすることができません。現在実行中の mysql バージョンは %4$s です。"
 
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number,
 #. 3: Minimum required PHP version number, 4: Current PHP version number.
@@ -11509,11 +11509,11 @@ msgid "The password you chose during installation."
 msgstr "インストール中に選択したパスワード。"
 
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number,
-#. 3: Minimum required PHP version number, 4: Minimum required mysqli version
-#. number, 5: Current PHP version number, 6: Current mysqli version number.
+#. 3: Minimum required PHP version number, 4: Minimum required mysql version
+#. number, 5: Current PHP version number, 6: Current mysql version number.
 #: wp-admin/update-core.php:99 wp-admin/upgrade.php:99
-msgid "You cannot update because <a href=\"%1$s\">WordPress %2$s</a> requires PHP version %3$s or higher and mysqli version %4$s or higher. You are running PHP version %5$s and mysqli version %6$s."
-msgstr "<a href=\"%1$s\">WordPress %2$s</a> は PHP %3$s 以降、mysqli %4$s 以降を必要とするため、更新を実行できません。現在実行中の PHP のバージョンは %5$s、mysqli のバージョンは %6$s です。"
+msgid "You cannot update because <a href=\"%1$s\">WordPress %2$s</a> requires PHP version %3$s or higher and mysql version %4$s or higher. You are running PHP version %5$s and mysql version %6$s."
+msgstr "<a href=\"%1$s\">WordPress %2$s</a> は PHP %3$s 以降、mysql %4$s 以降を必要とするため、更新を実行できません。現在実行中の PHP のバージョンは %5$s、mysql のバージョンは %6$s です。"
 
 #: wp-admin/update-core.php:324 wp-admin/update-core.php:453
 #: wp-admin/update-core.php:970 wp-admin/update-core.php:974
@@ -11596,11 +11596,11 @@ msgid "This address is used for admin purposes. If you change this, we will send
 msgstr "このアドレスは管理のために使用されます。変更すると、確認のため新しいアドレスにメールを送信します。<strong>新しいアドレスは確認が完了するまで有効化されません。</strong>"
 
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number,
-#. 3: Minimum required PHP version number, 4: Minimum required mysqli version
-#. number, 5: Current PHP version number, 6: Current mysqli version number.
+#. 3: Minimum required PHP version number, 4: Minimum required mysql version
+#. number, 5: Current PHP version number, 6: Current mysql version number.
 #: wp-admin/install.php:257
-msgid "You cannot install because <a href=\"%1$s\">WordPress %2$s</a> requires PHP version %3$s or higher and mysqli version %4$s or higher. You are running PHP version %5$s and mysqli version %6$s."
-msgstr "<a href=\"%1$s\">WordPress %2$s</a> は PHP %3$s 以降、mysqli %4$s 以降を必要とするため、インストールを実行できません。現在実行中の PHP のバージョンは %5$s、mysqli のバージョンは %6$s です。"
+msgid "You cannot install because <a href=\"%1$s\">WordPress %2$s</a> requires PHP version %3$s or higher and mysql version %4$s or higher. You are running PHP version %5$s and mysql version %6$s."
+msgstr "<a href=\"%1$s\">WordPress %2$s</a> は PHP %3$s 以降、mysql %4$s 以降を必要とするため、インストールを実行できません。現在実行中の PHP のバージョンは %5$s、mysql のバージョンは %6$s です。"
 
 #: wp-admin/includes/plugin.php:494
 msgid "Advanced caching plugin."
@@ -12775,11 +12775,11 @@ msgstr "更新用ファイルを展開できませんでした"
 msgid "Verifying the unpacked files&#8230;"
 msgstr "展開したファイルを検証しています…"
 
-#. translators: 1: WordPress version number, 2: Minimum required mysqli version
-#. number, 3: Current mysqli version number.
+#. translators: 1: WordPress version number, 2: Minimum required mysql version
+#. number, 3: Current mysql version number.
 #: wp-admin/includes/update-core.php:1010
-msgid "The update cannot be installed because WordPress %1$s requires mysqli version %2$s or higher. You are running version %3$s."
-msgstr "WordPress %1$s は mysqli %2$s 以降を必要とするため、更新をインストールできません。現在実行中のバージョンは %3$s です。"
+msgid "The update cannot be installed because WordPress %1$s requires mysql version %2$s or higher. You are running version %3$s."
+msgstr "WordPress %1$s は mysql %2$s 以降を必要とするため、更新をインストールできません。現在実行中のバージョンは %3$s です。"
 
 #. translators: 1: WordPress version number, 2: Minimum required PHP version
 #. number, 3: Current PHP version number.
@@ -12788,11 +12788,11 @@ msgid "The update cannot be installed because WordPress %1$s requires PHP versio
 msgstr "WordPress %1$s は PHP %2$s 以降を必要とするため、更新をインストールできません。現在実行中のバージョンは %3$s です。"
 
 #. translators: 1: WordPress version number, 2: Minimum required PHP version
-#. number, 3: Minimum required mysqli version number, 4: Current PHP version
-#. number, 5: Current mysqli version number.
+#. number, 3: Minimum required mysql version number, 4: Current PHP version
+#. number, 5: Current mysql version number.
 #: wp-admin/includes/update-core.php:986
-msgid "The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher and mysqli version %3$s or higher. You are running PHP version %4$s and mysqli version %5$s."
-msgstr "WordPress %1$s は PHP %2$s 以降、mysqli %3$s 以降を必要とするため、更新をインストールできません。現在実行中の PHP バージョンは %4$s、mysqli バージョンは %5$s です。"
+msgid "The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher and mysql version %3$s or higher. You are running PHP version %4$s and mysql version %5$s."
+msgstr "WordPress %1$s は PHP %2$s 以降、mysql %3$s 以降を必要とするため、更新をインストールできません。現在実行中の PHP バージョンは %4$s、mysql バージョンは %5$s です。"
 
 #. translators: %s: Theme name.
 #: wp-admin/includes/theme.php:83

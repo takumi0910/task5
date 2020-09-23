@@ -166,7 +166,7 @@ See structure.txt for the returned data structure.
 *>  file-scanning implementation of getID3(), please run   <*
 *>  /demos/demo.browse.php                                 <*
 
-See /demos/demo.mysqli.php for a sample recursive scanning code that
+See /demos/demo.mysql.php for a sample recursive scanning code that
 scans every file in a given directory, and all sub-directories, stores
 the results in a database and allows various analysis / maintenance
 operations

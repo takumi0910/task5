@@ -544,7 +544,7 @@ function wpmu_validate_user_signup( $user_name, $user_email ) {
 	// Has someone already signed up for this username?
 	$signup = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE user_login = %s", $user_name ) );
 	if ( null != $signup ) {
-		$registered_at = mysqli2date( 'U', $signup->registered );
+		$registered_at = mysql2date( 'U', $signup->registered );
 		$now           = time();
 		$diff          = $now - $registered_at;
 		// If registered more than two days ago, cancel registration and let this signup go through.
@@ -557,7 +557,7 @@ function wpmu_validate_user_signup( $user_name, $user_email ) {
 
 	$signup = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE user_email = %s", $user_email ) );
 	if ( null != $signup ) {
-		$diff = time() - mysqli2date( 'U', $signup->registered );
+		$diff = time() - mysql2date( 'U', $signup->registered );
 		// If registered more than two days ago, cancel registration and let this signup go through.
 		if ( $diff > 2 * DAY_IN_SECONDS ) {
 			$wpdb->delete( $wpdb->signups, array( 'user_email' => $user_email ) );
@@ -725,7 +725,7 @@ function wpmu_validate_blog_signup( $blogname, $blog_title, $user = '' ) {
 	// TODO: Check email too?
 	$signup = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE domain = %s AND path = %s", $mydomain, $path ) );
 	if ( ! empty( $signup ) ) {
-		$diff = time() - mysqli2date( 'U', $signup->registered );
+		$diff = time() - mysql2date( 'U', $signup->registered );
 		// If registered more than two days ago, cancel registration and let this signup go through.
 		if ( $diff > 2 * DAY_IN_SECONDS ) {
 			$wpdb->delete(
@@ -812,7 +812,7 @@ function wpmu_signup_blog( $domain, $path, $title, $user, $user_email, $meta = a
 			'title'          => $title,
 			'user_login'     => $user,
 			'user_email'     => $user_email,
-			'registered'     => current_time( 'mysqli', true ),
+			'registered'     => current_time( 'mysql', true ),
 			'activation_key' => $key,
 			'meta'           => serialize( $meta ),
 		)
@@ -878,7 +878,7 @@ function wpmu_signup_user( $user, $user_email, $meta = array() ) {
 			'title'          => '',
 			'user_login'     => $user,
 			'user_email'     => $user_email,
-			'registered'     => current_time( 'mysqli', true ),
+			'registered'     => current_time( 'mysql', true ),
 			'activation_key' => $key,
 			'meta'           => serialize( $meta ),
 		)
@@ -1191,7 +1191,7 @@ function wpmu_activate_signup( $key ) {
 		return new WP_Error( 'create_user', __( 'Could not create user' ), $signup );
 	}
 
-	$now = current_time( 'mysqli', true );
+	$now = current_time( 'mysql', true );
 
 	if ( empty( $signup->domain ) ) {
 		$wpdb->update(
@@ -1934,7 +1934,7 @@ function wpmu_log_new_registrations( $blog_id, $user_id ) {
 				'email'           => $user->user_email,
 				'IP'              => preg_replace( '/[^0-9., ]/', '', wp_unslash( $_SERVER['REMOTE_ADDR'] ) ),
 				'blog_id'         => $blog_id,
-				'date_registered' => current_time( 'mysqli' ),
+				'date_registered' => current_time( 'mysql' ),
 			)
 		);
 	}

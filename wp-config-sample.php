@@ -8,7 +8,7 @@
  *
  * このファイルは、以下の設定を含みます。
  *
- * * mysqli 設定
+ * * mysql 設定
  * * 秘密鍵
  * * データベーステーブル接頭辞
  * * ABSPATH
@@ -24,17 +24,17 @@
 // (http://wpdocs.osdn.jp/%E7%94%A8%E8%AA%9E%E9%9B%86#.E3.83.86.E3.82.AD.E3.82.B9.E3.83.88.E3.82.A8.E3.83.87.E3.82.A3.E3.82.BF 参照)
 // を使用し、必ず UTF-8 の BOM なし (UTF-8N) で保存してください。
 
-// ** mysqli 設定 - この情報はホスティング先から入手してください。 ** //
+// ** mysql 設定 - この情報はホスティング先から入手してください。 ** //
 /** WordPress のためのデータベース名 */
 define( 'DB_NAME', 'database_name_here' );
 
-/** mysqli データベースのユーザー名 */
+/** mysql データベースのユーザー名 */
 define( 'DB_USER', 'username_here' );
 
-/** mysqli データベースのパスワード */
+/** mysql データベースのパスワード */
 define( 'DB_PASSWORD', 'password_here' );
 
-/** mysqli のホスト名 */
+/** mysql のホスト名 */
 define( 'DB_HOST', 'localhost' );
 
 /** データベースのテーブルを作成する際のデータベースの文字セット */

@@ -19,7 +19,7 @@ require_once ABSPATH . WPINC . '/ms-network.php';
 function wpmu_update_blogs_date() {
 	$site_id = get_current_blog_id();
 
-	update_blog_details( $site_id, array( 'last_updated' => current_time( 'mysqli', true ) ) );
+	update_blog_details( $site_id, array( 'last_updated' => current_time( 'mysql', true ) ) );
 	/**
 	 * Fires after the blog details are updated.
 	 *

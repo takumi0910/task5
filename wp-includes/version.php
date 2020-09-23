@@ -37,10 +37,10 @@ $tinymce_version = '49100-20200624';
 $required_php_version = '5.6.20';
 
 /**
- * Holds the required mysqli version.
+ * Holds the required mysql version.
  *
- * @global string $required_mysqli_version
+ * @global string $required_mysql_version
  */
-$required_mysqli_version = '5.0';
+$required_mysql_version = '5.0';
 
 $wp_local_package = 'ja';

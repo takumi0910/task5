@@ -181,7 +181,7 @@ class WP_Term_Query {
 	 *                                                Can be used in conjunction with `$meta_value`. Default empty.
 	 *     @type string       $meta_value             Limit terms to those matching a specific metadata value.
 	 *                                                Usually used in conjunction with `$meta_key`. Default empty.
-	 *     @type string       $meta_type              mysqli data type that the `$meta_value` will be CAST to for
+	 *     @type string       $meta_type              mysql data type that the `$meta_value` will be CAST to for
 	 *                                                comparisons. Default empty.
 	 *     @type string       $meta_compare           Comparison operator to test the 'meta_value'. Default empty.
 	 * }

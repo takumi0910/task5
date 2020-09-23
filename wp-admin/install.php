@@ -224,14 +224,14 @@ if ( is_blog_installed() ) {
 /**
  * @global string $wp_version             The WordPress version string.
  * @global string $required_php_version   The required PHP version string.
- * @global string $required_mysqli_version The required mysqli version string.
+ * @global string $required_mysql_version The required mysql version string.
  */
-global $wp_version, $required_php_version, $required_mysqli_version;
+global $wp_version, $required_php_version, $required_mysql_version;
 
 $php_version   = phpversion();
-$mysqli_version = $wpdb->db_version();
+$mysql_version = $wpdb->db_version();
 $php_compat    = version_compare( $php_version, $required_php_version, '>=' );
-$mysqli_compat  = version_compare( $mysqli_version, $required_mysqli_version, '>=' ) || file_exists( WP_CONTENT_DIR . '/db.php' );
+$mysql_compat  = version_compare( $mysql_version, $required_mysql_version, '>=' ) || file_exists( WP_CONTENT_DIR . '/db.php' );
 
 $version_url = sprintf(
 	/* translators: %s: WordPress version. */
@@ -251,16 +251,16 @@ if ( $annotation ) {
 	$php_update_message .= '</p><p><em>' . $annotation . '</em>';
 }
 
-if ( ! $mysqli_compat && ! $php_compat ) {
+if ( ! $mysql_compat && ! $php_compat ) {
 	$compat = sprintf(
-		/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required PHP version number, 4: Minimum required mysqli version number, 5: Current PHP version number, 6: Current mysqli version number. */
-		__( 'You cannot install because <a href="%1$s">WordPress %2$s</a> requires PHP version %3$s or higher and mysqli version %4$s or higher. You are running PHP version %5$s and mysqli version %6$s.' ),
+		/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required PHP version number, 4: Minimum required mysql version number, 5: Current PHP version number, 6: Current mysql version number. */
+		__( 'You cannot install because <a href="%1$s">WordPress %2$s</a> requires PHP version %3$s or higher and mysql version %4$s or higher. You are running PHP version %5$s and mysql version %6$s.' ),
 		$version_url,
 		$wp_version,
 		$required_php_version,
-		$required_mysqli_version,
+		$required_mysql_version,
 		$php_version,
-		$mysqli_version
+		$mysql_version
 	) . $php_update_message;
 } elseif ( ! $php_compat ) {
 	$compat = sprintf(
@@ -271,18 +271,18 @@ if ( ! $mysqli_compat && ! $php_compat ) {
 		$required_php_version,
 		$php_version
 	) . $php_update_message;
-} elseif ( ! $mysqli_compat ) {
+} elseif ( ! $mysql_compat ) {
 	$compat = sprintf(
-		/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required mysqli version number, 4: Current mysqli version number. */
-		__( 'You cannot install because <a href="%1$s">WordPress %2$s</a> requires mysqli version %3$s or higher. You are running version %4$s.' ),
+		/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required mysql version number, 4: Current mysql version number. */
+		__( 'You cannot install because <a href="%1$s">WordPress %2$s</a> requires mysql version %3$s or higher. You are running version %4$s.' ),
 		$version_url,
 		$wp_version,
-		$required_mysqli_version,
-		$mysqli_version
+		$required_mysql_version,
+		$mysql_version
 	);
 }
 
-if ( ! $mysqli_compat || ! $php_compat ) {
+if ( ! $mysql_compat || ! $php_compat ) {
 	display_header();
 	die( '<h1>' . __( 'Requirements Not Met' ) . '</h1><p>' . $compat . '</p></body></html>' );
 }

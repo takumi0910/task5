@@ -321,7 +321,7 @@ $editor_settings = array(
 
 $autosave = wp_get_post_autosave( $post_ID );
 if ( $autosave ) {
-	if ( mysqli2date( 'U', $autosave->post_modified_gmt, false ) > mysqli2date( 'U', $post->post_modified_gmt, false ) ) {
+	if ( mysql2date( 'U', $autosave->post_modified_gmt, false ) > mysql2date( 'U', $post->post_modified_gmt, false ) ) {
 		$editor_settings['autosave'] = array(
 			'editLink' => get_edit_post_link( $autosave->ID ),
 		);

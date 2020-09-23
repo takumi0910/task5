@@ -2468,7 +2468,7 @@ final class WP_Customize_Manager {
 
 		/*
 		 * Validate changeset date param. Date is assumed to be in local time for
-		 * the WP if in mysqli format (YYYY-MM-DD HH:MM:SS). Otherwise, the date
+		 * the WP if in mysql format (YYYY-MM-DD HH:MM:SS). Otherwise, the date
 		 * is parsed with strtotime() so that ISO date format may be supplied
 		 * or a string like "+10 minutes".
 		 */
@@ -2663,7 +2663,7 @@ final class WP_Customize_Manager {
 		// Validate date.
 		$now = gmdate( 'Y-m-d H:i:59' );
 		if ( $args['date_gmt'] ) {
-			$is_future_dated = ( mysqli2date( 'U', $args['date_gmt'], false ) > mysqli2date( 'U', $now, false ) );
+			$is_future_dated = ( mysql2date( 'U', $args['date_gmt'], false ) > mysql2date( 'U', $now, false ) );
 			if ( ! $is_future_dated ) {
 				return new WP_Error( 'not_future_date', __( 'You must supply a future date to schedule.' ) ); // Only future dates are allowed.
 			}
@@ -2679,7 +2679,7 @@ final class WP_Customize_Manager {
 
 			// Fail if the new status is future but the existing post's date is not in the future.
 			$changeset_post = get_post( $changeset_post_id );
-			if ( mysqli2date( 'U', $changeset_post->post_date_gmt, false ) <= mysqli2date( 'U', $now, false ) ) {
+			if ( mysql2date( 'U', $changeset_post->post_date_gmt, false ) <= mysql2date( 'U', $now, false ) ) {
 				return new WP_Error( 'not_future_date', __( 'You must supply a future date to schedule.' ) );
 			}
 		}
@@ -2844,7 +2844,7 @@ final class WP_Customize_Manager {
 					array(
 						'type'              => $setting->type,
 						'user_id'           => $args['user_id'],
-						'date_modified_gmt' => current_time( 'mysqli', true ),
+						'date_modified_gmt' => current_time( 'mysql', true ),
 					)
 				);
 
@@ -2879,7 +2879,7 @@ final class WP_Customize_Manager {
 		 *     @type string               $uuid          Changeset UUID.
 		 *     @type string               $title         Requested title for the changeset post.
 		 *     @type string               $status        Requested status for the changeset post.
-		 *     @type string               $date_gmt      Requested date for the changeset post in mysqli format and GMT timezone.
+		 *     @type string               $date_gmt      Requested date for the changeset post in mysql format and GMT timezone.
 		 *     @type int|false            $post_id       Post ID for the changeset, or false if it doesn't exist yet.
 		 *     @type array                $previous_data Previous data contained in the changeset.
 		 *     @type WP_Customize_Manager $manager       Manager instance.
@@ -2928,7 +2928,7 @@ final class WP_Customize_Manager {
 			 * this extends its life, preserving it from garbage-collection via
 			 * wp_delete_auto_drafts().
 			 */
-			$post_array['post_date']     = current_time( 'mysqli' );
+			$post_array['post_date']     = current_time( 'mysql' );
 			$post_array['post_date_gmt'] = '';
 		}
 
@@ -4830,7 +4830,7 @@ final class WP_Customize_Manager {
 		}
 
 		// Determine initial date to be at present or future, not past.
-		$current_time = current_time( 'mysqli', false );
+		$current_time = current_time( 'mysql', false );
 		$initial_date = $current_time;
 		if ( $changeset_post ) {
 			$initial_date = get_the_time( 'Y-m-d H:i:s', $changeset_post->ID );

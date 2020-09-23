@@ -44,7 +44,7 @@
 function wp_insert_site( array $data ) {
 	global $wpdb;
 
-	$now = current_time( 'mysqli', true );
+	$now = current_time( 'mysql', true );
 
 	$defaults = array(
 		'domain'       => '',
@@ -168,7 +168,7 @@ function wp_update_site( $site_id, array $data ) {
 
 	$defaults                 = $old_site->to_array();
 	$defaults['network_id']   = (int) $defaults['site_id'];
-	$defaults['last_updated'] = current_time( 'mysqli', true );
+	$defaults['last_updated'] = current_time( 'mysql', true );
 	unset( $defaults['blog_id'], $defaults['site_id'] );
 
 	$data = wp_prepare_site_data( $data, $defaults, $old_site );

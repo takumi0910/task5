@@ -554,7 +554,7 @@ function get_comment_date( $format = '', $comment_ID = 0 ) {
 
 	$_format = ! empty( $format ) ? $format : get_option( 'date_format' );
 
-	$date = mysqli2date( $_format, $comment->comment_date );
+	$date = mysql2date( $_format, $comment->comment_date );
 
 	/**
 	 * Filters the returned comment date.
@@ -1046,7 +1046,7 @@ function get_comment_time( $format = '', $gmt = false, $translate = true ) {
 
 	$_format = ! empty( $format ) ? $format : get_option( 'time_format' );
 
-	$date = mysqli2date( $_format, $comment_date, $translate );
+	$date = mysql2date( $_format, $comment_date, $translate );
 
 	/**
 	 * Filters the returned comment time.

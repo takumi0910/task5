@@ -874,7 +874,7 @@ function check_comment_flood_db() {
  * @param bool   $is_flood  Is a comment flooding occurring?
  * @param string $ip        Comment author's IP address.
  * @param string $email     Comment author's email address.
- * @param string $date      mysqli time string.
+ * @param string $date      mysql time string.
  * @param bool   $avoid_die When true, a disallowed comment will result in the function
  *                          returning without executing wp_die() or die(). Default false.
  * @return bool Whether comment flooding is occurring.
@@ -913,8 +913,8 @@ function wp_check_comment_flood( $is_flood, $ip, $email, $date, $avoid_die = fal
 	$lasttime = $wpdb->get_var( $sql );
 
 	if ( $lasttime ) {
-		$time_lastcomment = mysqli2date( 'U', $lasttime, false );
-		$time_newcomment  = mysqli2date( 'U', $date, false );
+		$time_lastcomment = mysql2date( 'U', $lasttime, false );
+		$time_newcomment  = mysql2date( 'U', $date, false );
 
 		/**
 		 * Filters the comment flood status.
@@ -1242,7 +1242,7 @@ function wp_get_comment_fields_max_lengths() {
 		'comment_content'      => 65525,
 	);
 
-	if ( $wpdb->is_mysqli ) {
+	if ( $wpdb->is_mysql ) {
 		foreach ( $lengths as $column => $length ) {
 			$col_length = $wpdb->get_col_length( $wpdb->comments, $column );
 			$max_length = 0;
@@ -1995,7 +1995,7 @@ function wp_insert_comment( $commentdata ) {
 	$comment_author_url   = ! isset( $data['comment_author_url'] ) ? '' : $data['comment_author_url'];
 	$comment_author_IP    = ! isset( $data['comment_author_IP'] ) ? '' : $data['comment_author_IP'];
 
-	$comment_date     = ! isset( $data['comment_date'] ) ? current_time( 'mysqli' ) : $data['comment_date'];
+	$comment_date     = ! isset( $data['comment_date'] ) ? current_time( 'mysql' ) : $data['comment_date'];
 	$comment_date_gmt = ! isset( $data['comment_date_gmt'] ) ? get_gmt_from_date( $comment_date ) : $data['comment_date_gmt'];
 
 	$comment_post_ID  = ! isset( $data['comment_post_ID'] ) ? 0 : $data['comment_post_ID'];
@@ -2222,11 +2222,11 @@ function wp_new_comment( $commentdata, $wp_error = false ) {
 	$commentdata['comment_agent'] = substr( $commentdata['comment_agent'], 0, 254 );
 
 	if ( empty( $commentdata['comment_date'] ) ) {
-		$commentdata['comment_date'] = current_time( 'mysqli' );
+		$commentdata['comment_date'] = current_time( 'mysql' );
 	}
 
 	if ( empty( $commentdata['comment_date_gmt'] ) ) {
-		$commentdata['comment_date_gmt'] = current_time( 'mysqli', 1 );
+		$commentdata['comment_date_gmt'] = current_time( 'mysql', 1 );
 	}
 
 	if ( empty( $commentdata['comment_type'] ) ) {

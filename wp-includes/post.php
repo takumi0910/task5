@@ -3775,7 +3775,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	 */
 	if ( empty( $postarr['post_date'] ) || '0000-00-00 00:00:00' === $postarr['post_date'] ) {
 		if ( empty( $postarr['post_date_gmt'] ) || '0000-00-00 00:00:00' === $postarr['post_date_gmt'] ) {
-			$post_date = current_time( 'mysqli' );
+			$post_date = current_time( 'mysql' );
 		} else {
 			$post_date = get_date_from_gmt( $postarr['post_date_gmt'] );
 		}
@@ -3807,8 +3807,8 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	}
 
 	if ( $update || '0000-00-00 00:00:00' === $post_date ) {
-		$post_modified     = current_time( 'mysqli' );
-		$post_modified_gmt = current_time( 'mysqli', 1 );
+		$post_modified     = current_time( 'mysql' );
+		$post_modified_gmt = current_time( 'mysql', 1 );
 	} else {
 		$post_modified     = $post_date;
 		$post_modified_gmt = $post_date_gmt;
@@ -4329,7 +4329,7 @@ function wp_update_post( $postarr = array(), $wp_error = false ) {
 	$postarr                  = array_merge( $post, $postarr );
 	$postarr['post_category'] = $post_cats;
 	if ( $clear_date ) {
-		$postarr['post_date']     = current_time( 'mysqli' );
+		$postarr['post_date']     = current_time( 'mysql' );
 		$postarr['post_date_gmt'] = '';
 	}
 
@@ -5164,7 +5164,7 @@ function get_page_by_path( $page_path, $output = OBJECT, $post_type = 'page' ) {
  * Be careful: in case of more than one post having the same title, it will check the oldest
  * publication date, not the smallest ID.
  *
- * Because this function uses the mysqli '=' comparison, $page_title will usually be matched
+ * Because this function uses the mysql '=' comparison, $page_title will usually be matched
  * as case-insensitive with default collation.
  *
  * @since 2.1.0

@@ -74,9 +74,9 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 	set_site_transient( 'update_core', $current );
 
 	if ( method_exists( $wpdb, 'db_version' ) ) {
-		$mysqli_version = preg_replace( '/[^0-9.].*/', '', $wpdb->db_version() );
+		$mysql_version = preg_replace( '/[^0-9.].*/', '', $wpdb->db_version() );
 	} else {
-		$mysqli_version = 'N/A';
+		$mysql_version = 'N/A';
 	}
 
 	if ( is_multisite() ) {
@@ -96,7 +96,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 		'version'            => $wp_version,
 		'php'                => $php_version,
 		'locale'             => $locale,
-		'mysqli'              => $mysqli_version,
+		'mysql'              => $mysql_version,
 		'local_package'      => isset( $wp_local_package ) ? $wp_local_package : '',
 		'blogs'              => $num_blogs,
 		'users'              => $user_count,
@@ -118,7 +118,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 	 *     @type string $version            WordPress version number.
 	 *     @type string $php                PHP version number.
 	 *     @type string $locale             The locale to retrieve updates for.
-	 *     @type string $mysqli              mysqli version number.
+	 *     @type string $mysql              mysql version number.
 	 *     @type string $local_package      The value of the $wp_local_package global, when set.
 	 *     @type int    $blogs              Number of sites on this WordPress installation.
 	 *     @type int    $users              Number of users on this WordPress installation.
@@ -207,7 +207,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 					'current',
 					'version',
 					'php_version',
-					'mysqli_version',
+					'mysql_version',
 					'new_bundled',
 					'partial_version',
 					'notify_email',

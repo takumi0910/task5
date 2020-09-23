@@ -2705,7 +2705,7 @@ function get_boundary_post_rel_link($title = '%title', $in_same_cat = false, $ex
 	if ( empty($post->post_title) )
 		$post->post_title = $start ? __('First Post') : __('Last Post');
 
-	$date = mysqli2date(get_option('date_format'), $post->post_date);
+	$date = mysql2date(get_option('date_format'), $post->post_date);
 
 	$title = str_replace('%title', $post->post_title, $title);
 	$title = str_replace('%date', $date, $title);
@@ -2780,7 +2780,7 @@ function get_parent_post_rel_link( $title = '%title' ) {
 	if ( empty($post) )
 		return;
 
-	$date = mysqli2date(get_option('date_format'), $post->post_date);
+	$date = mysql2date(get_option('date_format'), $post->post_date);
 
 	$title = str_replace('%title', $post->post_title, $title);
 	$title = str_replace('%date', $date, $title);

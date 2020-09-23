@@ -3767,7 +3767,7 @@ function wp_prepare_attachment_for_js( $attachment ) {
 		'type'          => $type,
 		'subtype'       => $subtype,
 		'icon'          => wp_mime_type_icon( $attachment->ID ),
-		'dateFormatted' => mysqli2date( __( 'F j, Y' ), $attachment->post_date ),
+		'dateFormatted' => mysql2date( __( 'F j, Y' ), $attachment->post_date ),
 		'nonces'        => array(
 			'update' => false,
 			'delete' => false,

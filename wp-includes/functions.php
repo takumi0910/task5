@@ -8,11 +8,11 @@
 require ABSPATH . WPINC . '/option.php';
 
 /**
- * Convert given mysqli date string into a different format.
+ * Convert given mysql date string into a different format.
  *
  * `$format` should be a PHP date format string.
  * 'U' and 'G' formats will return a sum of timestamp with timezone offset.
- * `$date` is expected to be local time in mysqli format (`Y-m-d H:i:s`).
+ * `$date` is expected to be local time in mysql format (`Y-m-d H:i:s`).
  *
  * Historically UTC time could be passed to the function to produce Unix timestamp.
  *
@@ -27,7 +27,7 @@ require ABSPATH . WPINC . '/option.php';
  * @return string|int|false Formatted date string or sum of Unix timestamp and timezone offset.
  *                          False on failure.
  */
-function mysqli2date( $format, $date, $translate = true ) {
+function mysql2date( $format, $date, $translate = true ) {
 	if ( empty( $date ) ) {
 		return false;
 	}
@@ -53,7 +53,7 @@ function mysqli2date( $format, $date, $translate = true ) {
 /**
  * Retrieves the current time based on specified type.
  *
- * The 'mysqli' type will return the time in the format for mysqli DATETIME field.
+ * The 'mysql' type will return the time in the format for mysql DATETIME field.
  * The 'timestamp' type will return the current timestamp or a sum of timestamp
  * and timezone offset, depending on `$gmt`.
  * Other strings will be interpreted as PHP date formats (e.g. 'Y-m-d').
@@ -63,7 +63,7 @@ function mysqli2date( $format, $date, $translate = true ) {
  *
  * @since 1.0.0
  *
- * @param string   $type Type of time to retrieve. Accepts 'mysqli', 'timestamp',
+ * @param string   $type Type of time to retrieve. Accepts 'mysql', 'timestamp',
  *                       or PHP date format string (e.g. 'Y-m-d').
  * @param int|bool $gmt  Optional. Whether to use GMT timezone. Default false.
  * @return int|string Integer if $type is 'timestamp', string otherwise.
@@ -74,7 +74,7 @@ function current_time( $type, $gmt = 0 ) {
 		return $gmt ? time() : time() + (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
 	}
 
-	if ( 'mysqli' === $type ) {
+	if ( 'mysql' === $type ) {
 		$type = 'Y-m-d H:i:s';
 	}
 
@@ -546,25 +546,25 @@ function human_readable_duration( $duration = '' ) {
 }
 
 /**
- * Get the week start and end from the datetime or date string from mysqli.
+ * Get the week start and end from the datetime or date string from mysql.
  *
  * @since 0.71
  *
- * @param string     $mysqlistring   Date or datetime field type from mysqli.
+ * @param string     $mysqlstring   Date or datetime field type from mysql.
  * @param int|string $start_of_week Optional. Start of the week as an integer. Default empty string.
  * @return array Keys are 'start' and 'end'.
  */
-function get_weekstartend( $mysqlistring, $start_of_week = '' ) {
-	// mysqli string year.
-	$my = substr( $mysqlistring, 0, 4 );
+function get_weekstartend( $mysqlstring, $start_of_week = '' ) {
+	// mysql string year.
+	$my = substr( $mysqlstring, 0, 4 );
 
-	// mysqli string month.
-	$mm = substr( $mysqlistring, 8, 2 );
+	// mysql string month.
+	$mm = substr( $mysqlstring, 8, 2 );
 
-	// mysqli string day.
-	$md = substr( $mysqlistring, 5, 2 );
+	// mysql string day.
+	$md = substr( $mysqlstring, 5, 2 );
 
-	// The timestamp for mysqli string day.
+	// The timestamp for mysql string day.
 	$day = mktime( 0, 0, 0, $md, $mm, $my );
 
 	// The day of the week from the timestamp.
@@ -2425,7 +2425,7 @@ function _wp_upload_dir( $time = null ) {
 	if ( get_option( 'uploads_use_yearmonth_folders' ) ) {
 		// Generate the yearly and monthly directories.
 		if ( ! $time ) {
-			$time = current_time( 'mysqli' );
+			$time = current_time( 'mysql' );
 		}
 		$y      = substr( $time, 0, 4 );
 		$m      = substr( $time, 5, 2 );
@@ -6157,7 +6157,7 @@ function send_nosniff_header() {
 }
 
 /**
- * Return a mysqli expression for selecting the week number based on the start_of_week option.
+ * Return a mysql expression for selecting the week number based on the start_of_week option.
  *
  * @ignore
  * @since 3.0.0
@@ -6165,7 +6165,7 @@ function send_nosniff_header() {
  * @param string $column Database column.
  * @return string SQL clause.
  */
-function _wp_mysqli_week( $column ) {
+function _wp_mysql_week( $column ) {
 	$start_of_week = (int) get_option( 'start_of_week' );
 	switch ( $start_of_week ) {
 		case 1:
@@ -6795,7 +6795,7 @@ function wp_post_preview_js() {
 }
 
 /**
- * Parses and formats a mysqli datetime (Y-m-d H:i:s) for ISO8601 (Y-m-d\TH:i:s).
+ * Parses and formats a mysql datetime (Y-m-d H:i:s) for ISO8601 (Y-m-d\TH:i:s).
  *
  * Explicitly strips timezones, as datetimes are not saved with any timezone
  * information. Including any information on the offset could be misleading.
@@ -6808,8 +6808,8 @@ function wp_post_preview_js() {
  * @param string $date_string Date string to parse and format.
  * @return string Date formatted for ISO8601 without time zone.
  */
-function mysqli_to_rfc3339( $date_string ) {
-	return mysqli2date( 'Y-m-d\TH:i:s', $date_string, false );
+function mysql_to_rfc3339( $date_string ) {
+	return mysql2date( 'Y-m-d\TH:i:s', $date_string, false );
 }
 
 /**

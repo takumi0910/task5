@@ -107,26 +107,26 @@ class WP_Meta_Query {
 	 *     Array of meta query clauses. When first-order clauses or sub-clauses use strings as
 	 *     their array keys, they may be referenced in the 'orderby' parameter of the parent query.
 	 *
-	 *     @type string $relation Optional. The mysqli keyword used to join
+	 *     @type string $relation Optional. The mysql keyword used to join
 	 *                            the clauses of the query. Accepts 'AND', or 'OR'. Default 'AND'.
 	 *     @type array  ...$0 {
 	 *         Optional. An array of first-order clause parameters, or another fully-formed meta query.
 	 *
 	 *         @type string $key         Meta key to filter by.
-	 *         @type string $compare_key mysqli operator used for comparing the $key. Accepts '=', '!='
+	 *         @type string $compare_key mysql operator used for comparing the $key. Accepts '=', '!='
 	 *                                   'LIKE', 'NOT LIKE', 'IN', 'NOT IN', 'REGEXP', 'NOT REGEXP', 'RLIKE',
 	 *                                   'EXISTS' (alias of '=') or 'NOT EXISTS' (alias of '!=').
 	 *                                   Default is 'IN' when `$key` is an array, '=' otherwise.
-	 *         @type string $type_key    mysqli data type that the meta_key column will be CAST to for
+	 *         @type string $type_key    mysql data type that the meta_key column will be CAST to for
 	 *                                   comparisons. Accepts 'BINARY' for case-sensitive regular expression
 	 *                                   comparisons. Default is ''.
 	 *         @type string $value       Meta value to filter by.
-	 *         @type string $compare     mysqli operator used for comparing the $value. Accepts '=',
+	 *         @type string $compare     mysql operator used for comparing the $value. Accepts '=',
 	 *                                   '!=', '>', '>=', '<', '<=', 'LIKE', 'NOT LIKE',
 	 *                                   'IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN', 'REGEXP',
 	 *                                   'NOT REGEXP', 'RLIKE', 'EXISTS' or 'NOT EXISTS'.
 	 *                                   Default is 'IN' when `$value` is an array, '=' otherwise.
-	 *         @type string $type        mysqli data type that the meta_value column will be CAST to for
+	 *         @type string $type        mysql data type that the meta_value column will be CAST to for
 	 *                                   comparisons. Accepts 'NUMERIC', 'BINARY', 'CHAR', 'DATE',
 	 *                                   'DATETIME', 'DECIMAL', 'SIGNED', 'TIME', or 'UNSIGNED'.
 	 *                                   Default is 'CHAR'.
@@ -281,8 +281,8 @@ class WP_Meta_Query {
 	 *
 	 * @since 3.7.0
 	 *
-	 * @param string $type mysqli type to cast meta_value.
-	 * @return string mysqli type.
+	 * @param string $type mysql type to cast meta_value.
+	 * @return string mysql type.
 	 */
 	public function get_cast_for_type( $type = '' ) {
 		if ( empty( $type ) ) {

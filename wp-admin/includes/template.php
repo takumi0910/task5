@@ -321,12 +321,12 @@ function get_inline_data( $post ) {
 	<div class="comment_status">' . esc_html( $post->comment_status ) . '</div>
 	<div class="ping_status">' . esc_html( $post->ping_status ) . '</div>
 	<div class="_status">' . esc_html( $post->post_status ) . '</div>
-	<div class="jj">' . mysqli2date( 'd', $post->post_date, false ) . '</div>
-	<div class="mm">' . mysqli2date( 'm', $post->post_date, false ) . '</div>
-	<div class="aa">' . mysqli2date( 'Y', $post->post_date, false ) . '</div>
-	<div class="hh">' . mysqli2date( 'H', $post->post_date, false ) . '</div>
-	<div class="mn">' . mysqli2date( 'i', $post->post_date, false ) . '</div>
-	<div class="ss">' . mysqli2date( 's', $post->post_date, false ) . '</div>
+	<div class="jj">' . mysql2date( 'd', $post->post_date, false ) . '</div>
+	<div class="mm">' . mysql2date( 'm', $post->post_date, false ) . '</div>
+	<div class="aa">' . mysql2date( 'Y', $post->post_date, false ) . '</div>
+	<div class="hh">' . mysql2date( 'H', $post->post_date, false ) . '</div>
+	<div class="mn">' . mysql2date( 'i', $post->post_date, false ) . '</div>
+	<div class="ss">' . mysql2date( 's', $post->post_date, false ) . '</div>
 	<div class="post_password">' . esc_html( $post->post_password ) . '</div>';
 
 	if ( $post_type_object->hierarchical ) {
@@ -800,12 +800,12 @@ function touch_time( $edit = 1, $for_post = 1, $tab_index = 0, $multi = 0 ) {
 	// echo '<label for="timestamp" style="display: block;"><input type="checkbox" class="checkbox" name="edit_date" value="1" id="timestamp"'.$tab_index_attribute.' /> '.__( 'Edit timestamp' ).'</label><br />';
 
 	$post_date = ( $for_post ) ? $post->post_date : get_comment()->comment_date;
-	$jj        = ( $edit ) ? mysqli2date( 'd', $post_date, false ) : current_time( 'd' );
-	$mm        = ( $edit ) ? mysqli2date( 'm', $post_date, false ) : current_time( 'm' );
-	$aa        = ( $edit ) ? mysqli2date( 'Y', $post_date, false ) : current_time( 'Y' );
-	$hh        = ( $edit ) ? mysqli2date( 'H', $post_date, false ) : current_time( 'H' );
-	$mn        = ( $edit ) ? mysqli2date( 'i', $post_date, false ) : current_time( 'i' );
-	$ss        = ( $edit ) ? mysqli2date( 's', $post_date, false ) : current_time( 's' );
+	$jj        = ( $edit ) ? mysql2date( 'd', $post_date, false ) : current_time( 'd' );
+	$mm        = ( $edit ) ? mysql2date( 'm', $post_date, false ) : current_time( 'm' );
+	$aa        = ( $edit ) ? mysql2date( 'Y', $post_date, false ) : current_time( 'Y' );
+	$hh        = ( $edit ) ? mysql2date( 'H', $post_date, false ) : current_time( 'H' );
+	$mn        = ( $edit ) ? mysql2date( 'i', $post_date, false ) : current_time( 'i' );
+	$ss        = ( $edit ) ? mysql2date( 's', $post_date, false ) : current_time( 's' );
 
 	$cur_jj = current_time( 'd' );
 	$cur_mm = current_time( 'm' );

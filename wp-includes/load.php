@@ -89,7 +89,7 @@ function wp_fix_server_vars() {
 }
 
 /**
- * Check for the required PHP version, and the mysqli extension or
+ * Check for the required PHP version, and the mysql extension or
  * a database drop-in.
  *
  * Dies if requirements are not met.
@@ -100,7 +100,7 @@ function wp_fix_server_vars() {
  * @global string $required_php_version The required PHP version string.
  * @global string $wp_version           The WordPress version string.
  */
-function wp_check_php_mysqli_versions() {
+function wp_check_php_mysql_versions() {
 	global $required_php_version, $wp_version;
 	$php_version = phpversion();
 
@@ -112,15 +112,15 @@ function wp_check_php_mysqli_versions() {
 		exit( 1 );
 	}
 
-	if ( ! extension_loaded( 'mysqli' ) && ! extension_loaded( 'mysqlii' ) && ! extension_loaded( 'mysqlind' ) && ! file_exists( 'WP_CONTENT_DIR' . '/db.php' ) ) {
+	if ( ! extension_loaded( 'mysql' ) && ! extension_loaded( 'mysqli' ) && ! extension_loaded( 'mysqlnd' ) && ! file_exists( 'WP_CONTENT_DIR' . '/db.php' ) ) {
 		require_once ABSPATH . WPINC . '/functions.php';
 		wp_load_translations_early();
 		$args = array(
 			'exit' => false,
-			'code' => 'mysqli_not_found',
+			'code' => 'mysql_not_found',
 		);
 		wp_die(
-			__( 'Your PHP installation appears to be missing the mysqli extension which is required by WordPress.' ),
+			__( 'Your PHP installation appears to be missing the mysql extension which is required by WordPress.' ),
 			__( 'Requirements Not Met' ),
 			$args
 		);

@@ -215,13 +215,13 @@ class WP_Automatic_Updater {
 			global $wpdb;
 
 			$php_compat = version_compare( phpversion(), $item->php_version, '>=' );
-			if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysqli ) ) {
-				$mysqli_compat = true;
+			if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysql ) ) {
+				$mysql_compat = true;
 			} else {
-				$mysqli_compat = version_compare( $wpdb->db_version(), $item->mysqli_version, '>=' );
+				$mysql_compat = version_compare( $wpdb->db_version(), $item->mysql_version, '>=' );
 			}
 
-			if ( ! $php_compat || ! $mysqli_compat ) {
+			if ( ! $php_compat || ! $mysql_compat ) {
 				return false;
 			}
 		}

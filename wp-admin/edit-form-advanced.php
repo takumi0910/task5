@@ -243,7 +243,7 @@ $nonce_action = 'update-post_' . $post_ID;
 $form_extra  .= "<input type='hidden' id='post_ID' name='post_ID' value='" . esc_attr( $post_ID ) . "' />";
 
 // Detect if there exists an autosave newer than the post and if that autosave is different than the post.
-if ( $autosave && mysqli2date( 'U', $autosave->post_modified_gmt, false ) > mysqli2date( 'U', $post->post_modified_gmt, false ) ) {
+if ( $autosave && mysql2date( 'U', $autosave->post_modified_gmt, false ) > mysql2date( 'U', $post->post_modified_gmt, false ) ) {
 	foreach ( _wp_post_revision_fields( $post ) as $autosave_field => $_autosave_field ) {
 		if ( normalize_whitespace( $autosave->$autosave_field ) !== normalize_whitespace( $post->$autosave_field ) ) {
 			$notice = sprintf(
@@ -622,10 +622,10 @@ if ( post_type_supports( $post_type, 'editor' ) ) {
 		$last_user = get_userdata( get_post_meta( $post_ID, '_edit_last', true ) );
 		if ( $last_user ) {
 			/* translators: 1: Name of most recent post author, 2: Post edited date, 3: Post edited time. */
-			printf( __( 'Last edited by %1$s on %2$s at %3$s' ), esc_html( $last_user->display_name ), mysqli2date( __( 'F j, Y' ), $post->post_modified ), mysqli2date( __( 'g:i a' ), $post->post_modified ) );
+			printf( __( 'Last edited by %1$s on %2$s at %3$s' ), esc_html( $last_user->display_name ), mysql2date( __( 'F j, Y' ), $post->post_modified ), mysql2date( __( 'g:i a' ), $post->post_modified ) );
 		} else {
 			/* translators: 1: Post edited date, 2: Post edited time. */
-			printf( __( 'Last edited on %1$s at %2$s' ), mysqli2date( __( 'F j, Y' ), $post->post_modified ), mysqli2date( __( 'g:i a' ), $post->post_modified ) );
+			printf( __( 'Last edited on %1$s at %2$s' ), mysql2date( __( 'F j, Y' ), $post->post_modified ), mysql2date( __( 'g:i a' ), $post->post_modified ) );
 		}
 		echo '</span>';
 	}

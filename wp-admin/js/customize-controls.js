@@ -844,7 +844,7 @@
 	/**
 	 * Get current timestamp adjusted for server clock time.
 	 *
-	 * Same functionality as the `current_time( 'mysqli', false )` function in PHP.
+	 * Same functionality as the `current_time( 'mysql', false )` function in PHP.
 	 *
 	 * @alias wp.customize.utils.getCurrentTimestamp
 	 *
@@ -7441,7 +7441,7 @@
 			 *
 			 * @param {Object} [args] Args.
 			 * @param {string} [args.status=publish] Status.
-			 * @param {string} [args.date] Date, in local time in mysqli format.
+			 * @param {string} [args.date] Date, in local time in mysql format.
 			 * @param {string} [args.title] Title
 			 * @return {jQuery.promise} Promise.
 			 */

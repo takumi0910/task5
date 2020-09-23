@@ -94,7 +94,7 @@ class WP_Tax_Query {
 	 * @param array $tax_query {
 	 *     Array of taxonomy query clauses.
 	 *
-	 *     @type string $relation Optional. The mysqli keyword used to join
+	 *     @type string $relation Optional. The mysql keyword used to join
 	 *                            the clauses of the query. Accepts 'AND', or 'OR'. Default 'AND'.
 	 *     @type array  ...$0 {
 	 *         An array of first-order clause parameters, or another fully-formed tax query.
@@ -103,7 +103,7 @@ class WP_Tax_Query {
 	 *         @type string|int|array $terms            Term or terms to filter by.
 	 *         @type string           $field            Field to match $terms against. Accepts 'term_id', 'slug',
 	 *                                                 'name', or 'term_taxonomy_id'. Default: 'term_id'.
-	 *         @type string           $operator         mysqli operator to be used with $terms in the WHERE clause.
+	 *         @type string           $operator         mysql operator to be used with $terms in the WHERE clause.
 	 *                                                  Accepts 'AND', 'IN', 'NOT IN', 'EXISTS', 'NOT EXISTS'.
 	 *                                                  Default: 'IN'.
 	 *         @type bool             $include_children Optional. Whether to include child terms.

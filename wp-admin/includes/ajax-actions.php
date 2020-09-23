@@ -2206,7 +2206,7 @@ function wp_ajax_find_posts() {
 			$time = '';
 		} else {
 			/* translators: Date format in table columns, see https://www.php.net/date */
-			$time = mysqli2date( __( 'Y/m/d' ), $post->post_date );
+			$time = mysql2date( __( 'Y/m/d' ), $post->post_date );
 		}
 
 		$html .= '<tr class="' . trim( 'found-posts ' . $alt ) . '"><td class="found-radio"><input type="radio" id="found-' . $post->ID . '" name="found_post_id" value="' . esc_attr( $post->ID ) . '"></td>';
@@ -2798,8 +2798,8 @@ function wp_ajax_wp_fullscreen_save_post() {
 	}
 
 	if ( $post ) {
-		$last_date = mysqli2date( __( 'F j, Y' ), $post->post_modified );
-		$last_time = mysqli2date( __( 'g:i a' ), $post->post_modified );
+		$last_date = mysql2date( __( 'F j, Y' ), $post->post_modified );
+		$last_time = mysql2date( __( 'g:i a' ), $post->post_modified );
 	} else {
 		$last_date = date_i18n( __( 'F j, Y' ) );
 		$last_time = date_i18n( __( 'g:i a' ) );
