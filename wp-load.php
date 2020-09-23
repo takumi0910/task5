@@ -68,7 +68,7 @@ if ( file_exists( ABSPATH . 'wp-config.php' ) ) {
 	define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
 	require_once ABSPATH . WPINC . '/version.php';
 
-	wp_check_php_mysql_versions();
+	wp_check_php_mysqli_versions();
 	wp_load_translations_early();
 
 	// Die with an error message

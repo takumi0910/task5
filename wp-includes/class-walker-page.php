@@ -208,7 +208,7 @@ class Walker_Page extends Walker {
 			}
 
 			$date_format = empty( $args['date_format'] ) ? '' : $args['date_format'];
-			$output     .= ' ' . mysql2date( $date_format, $time );
+			$output     .= ' ' . mysqli2date( $date_format, $time );
 		}
 	}
 

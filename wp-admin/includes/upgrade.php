@@ -49,7 +49,7 @@ if ( ! function_exists( 'wp_install' ) ) :
 			_deprecated_argument( __FUNCTION__, '2.6.0' );
 		}
 
-		wp_check_mysql_version();
+		wp_check_mysqli_version();
 		wp_cache_flush();
 		make_db_current_silent();
 		populate_options();
@@ -168,7 +168,7 @@ if ( ! function_exists( 'wp_install_defaults' ) ) :
 						'cat_ID'            => 0,
 						'cat_name'          => $cat_name,
 						'category_nicename' => $cat_slug,
-						'last_updated'      => current_time( 'mysql', true ),
+						'last_updated'      => current_time( 'mysqli', true ),
 					)
 				);
 				$cat_id = $wpdb->insert_id;
@@ -200,8 +200,8 @@ if ( ! function_exists( 'wp_install_defaults' ) ) :
 		$cat_tt_id = $wpdb->insert_id;
 
 		// First post.
-		$now             = current_time( 'mysql' );
-		$now_gmt         = current_time( 'mysql', 1 );
+		$now             = current_time( 'mysqli' );
+		$now_gmt         = current_time( 'mysqli', 1 );
 		$first_post_guid = get_option( 'home' ) . '/?p=1';
 
 		if ( is_multisite() ) {
@@ -659,7 +659,7 @@ if ( ! function_exists( 'wp_upgrade' ) ) :
 			return;
 		}
 
-		wp_check_mysql_version();
+		wp_check_mysqli_version();
 		wp_cache_flush();
 		pre_schema_upgrade();
 		make_db_current_silent();
@@ -1252,7 +1252,7 @@ function upgrade_210() {
 		$posts = $wpdb->get_results( "SELECT ID, post_date FROM $wpdb->posts WHERE post_status ='future'" );
 		if ( ! empty( $posts ) ) {
 			foreach ( $posts as $post ) {
-				wp_schedule_single_event( mysql2date( 'U', $post->post_date, false ), 'publish_future_post', array( $post->ID ) );
+				wp_schedule_single_event( mysqli2date( 'U', $post->post_date, false ), 'publish_future_post', array( $post->ID ) );
 			}
 		}
 	}
@@ -2362,7 +2362,7 @@ function upgrade_network() {
  * Creates a table in the database, if it doesn't already exist.
  *
  * This method checks for an existing database and creates a new one if it's not
- * already present. It doesn't rely on MySQL's "IF NOT EXISTS" statement, but chooses
+ * already present. It doesn't rely on mysqli's "IF NOT EXISTS" statement, but chooses
  * to query all tables first and then run the SQL statement creating the table.
  *
  * @since 1.0.0
@@ -3279,13 +3279,13 @@ function translate_level_to_role( $level ) {
 }
 
 /**
- * Checks the version of the installed MySQL binary.
+ * Checks the version of the installed mysqli binary.
  *
  * @since 2.1.0
  *
  * @global wpdb $wpdb WordPress database abstraction object.
  */
-function wp_check_mysql_version() {
+function wp_check_mysqli_version() {
 	global $wpdb;
 	$result = $wpdb->check_database_version();
 	if ( is_wp_error( $result ) ) {

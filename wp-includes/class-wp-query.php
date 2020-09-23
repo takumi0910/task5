@@ -3096,7 +3096,7 @@ class WP_Query {
 							} else {
 								$this->is_preview = true;
 								if ( 'future' !== $status ) {
-									$this->posts[0]->post_date = current_time( 'mysql' );
+									$this->posts[0]->post_date = current_time( 'mysqli' );
 								}
 							}
 						} elseif ( $post_status_obj->private ) {
@@ -4321,8 +4321,8 @@ class WP_Query {
 
 		$authordata = get_userdata( $post->post_author );
 
-		$currentday   = mysql2date( 'd.m.y', $post->post_date, false );
-		$currentmonth = mysql2date( 'm', $post->post_date, false );
+		$currentday   = mysqli2date( 'd.m.y', $post->post_date, false );
+		$currentmonth = mysqli2date( 'm', $post->post_date, false );
 		$numpages     = 1;
 		$multipage    = 0;
 		$page         = $this->get( 'page' );

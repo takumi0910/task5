@@ -375,7 +375,7 @@ function wp_privacy_generate_personal_data_export_file( $request_id ) {
 				),
 				array(
 					'name'  => _x( 'On', 'date/time' ),
-					'value' => current_time( 'mysql' ),
+					'value' => current_time( 'mysqli' ),
 				),
 			),
 		),

@@ -650,10 +650,10 @@ class WP_REST_Revisions_Controller extends WP_REST_Controller {
 		}
 
 		if ( isset( $date ) ) {
-			return mysql_to_rfc3339( $date );
+			return mysqli_to_rfc3339( $date );
 		}
 
-		return mysql_to_rfc3339( $date_gmt );
+		return mysqli_to_rfc3339( $date_gmt );
 	}
 
 	/**

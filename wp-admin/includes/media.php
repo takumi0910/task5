@@ -288,7 +288,7 @@ function media_send_to_editor( $html ) {
  * @return int|WP_Error ID of the attachment or a WP_Error object on failure.
  */
 function media_handle_upload( $file_id, $post_id, $post_data = array(), $overrides = array( 'test_form' => false ) ) {
-	$time = current_time( 'mysql' );
+	$time = current_time( 'mysqli' );
 	$post = get_post( $post_id );
 
 	if ( $post ) {
@@ -437,7 +437,7 @@ function media_handle_upload( $file_id, $post_id, $post_data = array(), $overrid
 function media_handle_sideload( $file_array, $post_id = 0, $desc = null, $post_data = array() ) {
 	$overrides = array( 'test_form' => false );
 
-	$time = current_time( 'mysql' );
+	$time = current_time( 'mysqli' );
 	$post = get_post( $post_id );
 
 	if ( $post ) {
@@ -1665,7 +1665,7 @@ function get_media_item( $attachment_id, $args = null ) {
 			<td>
 			<p><strong>" . __( 'File name:' ) . "</strong> $filename</p>
 			<p><strong>" . __( 'File type:' ) . "</strong> $post->post_mime_type</p>
-			<p><strong>" . __( 'Upload date:' ) . '</strong> ' . mysql2date( __( 'F j, Y' ), $post->post_date ) . '</p>';
+			<p><strong>" . __( 'Upload date:' ) . '</strong> ' . mysqli2date( __( 'F j, Y' ), $post->post_date ) . '</p>';
 
 	if ( ! empty( $media_dims ) ) {
 		$item .= '<p><strong>' . __( 'Dimensions:' ) . "</strong> $media_dims</p>\n";

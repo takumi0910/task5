@@ -2070,7 +2070,7 @@ function wp_get_archives( $args = '' ) {
 					$url = add_query_arg( 'post_type', $parsed_args['post_type'], $url );
 				}
 				$date = sprintf( '%1$d-%2$02d-%3$02d 00:00:00', $result->year, $result->month, $result->dayofmonth );
-				$text = mysql2date( get_option( 'date_format' ), $date );
+				$text = mysqli2date( get_option( 'date_format' ), $date );
 				if ( $parsed_args['show_post_count'] ) {
 					$parsed_args['after'] = '&nbsp;(' . $result->posts . ')' . $after;
 				}
@@ -2079,7 +2079,7 @@ function wp_get_archives( $args = '' ) {
 			}
 		}
 	} elseif ( 'weekly' === $parsed_args['type'] ) {
-		$week    = _wp_mysql_week( '`post_date`' );
+		$week    = _wp_mysqli_week( '`post_date`' );
 		$query   = "SELECT DISTINCT $week AS `week`, YEAR( `post_date` ) AS `yr`, DATE_FORMAT( `post_date`, '%Y-%m-%d' ) AS `yyyymmdd`, count( `ID` ) AS `posts` FROM `$wpdb->posts` $join $where GROUP BY $week, YEAR( `post_date` ) ORDER BY `post_date` $order $limit";
 		$key     = md5( $query );
 		$key     = "wp_get_archives:$key:$last_changed";
@@ -2226,9 +2226,9 @@ function get_calendar( $initial = true, $echo = true ) {
 		$thismonth = zeroise( intval( $monthnum ), 2 );
 		$thisyear  = (int) $year;
 	} elseif ( ! empty( $w ) ) {
-		// We need to get the month from MySQL.
+		// We need to get the month from mysqli.
 		$thisyear = (int) substr( $m, 0, 4 );
-		// It seems MySQL's weeks disagree with PHP's.
+		// It seems mysqli's weeks disagree with PHP's.
 		$d         = ( ( $w - 1 ) * 7 ) + 6;
 		$thismonth = $wpdb->get_var( "SELECT DATE_FORMAT((DATE_ADD('{$thisyear}0101', INTERVAL $d DAY) ), '%m')" );
 	} elseif ( ! empty( $m ) ) {
@@ -2450,7 +2450,7 @@ function allowed_tags() {
  * @since 1.0.0
  */
 function the_date_xml() {
-	echo mysql2date( 'Y-m-d', get_post()->post_date, false );
+	echo mysqli2date( 'Y-m-d', get_post()->post_date, false );
 }
 
 /**
@@ -3938,7 +3938,7 @@ function wp_get_code_editor_settings( $args ) {
 				),
 			)
 		);
-	} elseif ( 'text/x-sql' === $type || 'text/x-mysql' === $type ) {
+	} elseif ( 'text/x-sql' === $type || 'text/x-mysqli' === $type ) {
 		$settings['codemirror'] = array_merge(
 			$settings['codemirror'],
 			array(

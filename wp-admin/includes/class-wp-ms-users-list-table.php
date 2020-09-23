@@ -335,7 +335,7 @@ class WP_MS_Users_List_Table extends WP_List_Table {
 		} else {
 			$date = __( 'Y/m/d g:i:s a' );
 		}
-		echo mysql2date( $date, $user->user_registered );
+		echo mysqli2date( $date, $user->user_registered );
 	}
 
 	/**

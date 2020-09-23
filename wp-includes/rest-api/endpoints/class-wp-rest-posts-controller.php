@@ -1027,7 +1027,7 @@ class WP_REST_Posts_Controller extends WP_REST_Controller {
 	protected function prepare_date_response( $date_gmt, $date = null ) {
 		// Use the date if passed.
 		if ( isset( $date ) ) {
-			return mysql_to_rfc3339( $date );
+			return mysqli_to_rfc3339( $date );
 		}
 
 		// Return null if $date_gmt is empty/zeros.
@@ -1036,7 +1036,7 @@ class WP_REST_Posts_Controller extends WP_REST_Controller {
 		}
 
 		// Return the formatted datetime.
-		return mysql_to_rfc3339( $date_gmt );
+		return mysqli_to_rfc3339( $date_gmt );
 	}
 
 	/**

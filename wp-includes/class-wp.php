@@ -442,9 +442,9 @@ class WP {
 					)
 				)
 			) {
-				$wp_last_modified = mysql2date( 'D, d M Y H:i:s', get_lastcommentmodified( 'GMT' ), false );
+				$wp_last_modified = mysqli2date( 'D, d M Y H:i:s', get_lastcommentmodified( 'GMT' ), false );
 			} else {
-				$wp_last_modified = mysql2date( 'D, d M Y H:i:s', get_lastpostmodified( 'GMT' ), false );
+				$wp_last_modified = mysqli2date( 'D, d M Y H:i:s', get_lastpostmodified( 'GMT' ), false );
 			}
 
 			if ( ! $wp_last_modified ) {

@@ -6875,8 +6875,8 @@ msgid "&larr; Back to %s"
 msgstr "&larr; %s に戻る"
 
 #: wp-includes/wp-db.php:1958 wp-includes/wp-db.php:1964
-msgid "Unable to retrieve the error message from MySQL"
-msgstr "MySQL からエラーメッセージを取得できません"
+msgid "Unable to retrieve the error message from mysqli"
+msgstr "mysqli からエラーメッセージを取得できません"
 
 #: wp-includes/widgets/class-wp-nav-menu-widget.php:195
 #: wp-includes/customize/class-wp-customize-nav-menu-location-control.php:86
@@ -8625,8 +8625,8 @@ msgstr ""
 
 #. translators: %s: Table name.
 #: wp-includes/ms-load.php:482
-msgid "<strong>Database tables are missing.</strong> This means that MySQL is not running, WordPress was not installed properly, or someone deleted %s. You really should look at your database now."
-msgstr "<strong>データベースのテーブルが見つかりません。</strong> これは MySQL が動作していないか、 WordPress が適切にインストールされていない、または、誰かが %s を削除したことを意味します。今すぐデータベースを確認することをおすすめします。"
+msgid "<strong>Database tables are missing.</strong> This means that mysqli is not running, WordPress was not installed properly, or someone deleted %s. You really should look at your database now."
+msgstr "<strong>データベースのテーブルが見つかりません。</strong> これは mysqli が動作していないか、 WordPress が適切にインストールされていない、または、誰かが %s を削除したことを意味します。今すぐデータベースを確認することをおすすめします。"
 
 #: wp-includes/customize/class-wp-customize-nav-menu-item-setting.php:322
 #: wp-includes/class-wp-customize-nav-menus.php:168
@@ -12351,8 +12351,8 @@ msgid "If your site does not display, please contact the owner of this network."
 msgstr "サイトが表示されない場合は、このサイトネットワークの所有者に管理してください。"
 
 #: wp-includes/ms-load.php:477
-msgid "If you are the owner of this network please check that MySQL is running properly and all tables are error free."
-msgstr "もしあなたがこのサイトネットワークの保有者の場合、MySQL が正しく動作していて、テーブルにエラーがないかご確認ください。"
+msgid "If you are the owner of this network please check that mysqli is running properly and all tables are error free."
+msgstr "もしあなたがこのサイトネットワークの保有者の場合、mysqli が正しく動作していて、テーブルにエラーがないかご確認ください。"
 
 #. translators: %s: Post title.
 #: wp-includes/pluggable.php:1592
@@ -12413,8 +12413,8 @@ msgid "WordPress database error %1$s for query %2$s made by %3$s"
 msgstr "WordPress データベースエラー: %1$s for query %2$s made by %3$s"
 
 #: wp-includes/load.php:123
-msgid "Your PHP installation appears to be missing the MySQL extension which is required by WordPress."
-msgstr "お使いのサーバーの PHP では WordPress に必要な MySQL 拡張を利用できないようです。"
+msgid "Your PHP installation appears to be missing the mysqli extension which is required by WordPress."
+msgstr "お使いのサーバーの PHP では WordPress に必要な mysqli 拡張を利用できないようです。"
 
 #: wp-includes/class-wp-xmlrpc-server.php:7020
 msgid "The specified target URL does not exist."
@@ -12743,11 +12743,11 @@ msgstr "<strong>エラー</strong>: ユーザー名またはメールアドレ�
 msgid "Powered by WordPress"
 msgstr "Powered by WordPress"
 
-#. translators: 1: WordPress version number, 2: Minimum required MySQL version
+#. translators: 1: WordPress version number, 2: Minimum required mysqli version
 #. number.
 #: wp-includes/wp-db.php:3534
-msgid "<strong>Error</strong>: WordPress %1$s requires MySQL %2$s or higher"
-msgstr "<strong>エラー</strong>: WordPress %1$s には MySQL %2$s 以上が必要です"
+msgid "<strong>Error</strong>: WordPress %1$s requires mysqli %2$s or higher"
+msgstr "<strong>エラー</strong>: WordPress %1$s には mysqli %2$s 以上が必要です"
 
 #. translators: %d: Sidebar number.
 #: wp-includes/widgets.php:182 wp-includes/widgets.php:256

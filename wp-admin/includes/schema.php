@@ -1044,7 +1044,7 @@ function populate_network( $network_id = 1, $domain = '', $email = '', $site_nam
 				'blog_id'    => 1,
 				'domain'     => $domain,
 				'path'       => $path,
-				'registered' => current_time( 'mysql' ),
+				'registered' => current_time( 'mysqli' ),
 			)
 		);
 		$current_site->blog_id = $wpdb->insert_id;

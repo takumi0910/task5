@@ -1804,7 +1804,7 @@ function wp_insert_user( $userdata ) {
 	 *     @type string $user_url        The user's url.
 	 *     @type string $user_nicename   The user's nice name. Defaults to a URL-safe version of user's login
 	 *     @type string $display_name    The user's display name.
-	 *     @type string $user_registered MySQL timestamp describing the moment when the user registered. Defaults to
+	 *     @type string $user_registered mysqli timestamp describing the moment when the user registered. Defaults to
 	 *                                   the current UTC timestamp.
 	 * }
 	 * @param bool     $update Whether the user is being updated rather than created.
@@ -3618,8 +3618,8 @@ function wp_create_user_request( $email_address = '', $action_name = '', $reques
 			'post_content'  => wp_json_encode( $request_data ),
 			'post_status'   => 'request-pending',
 			'post_type'     => 'user_request',
-			'post_date'     => current_time( 'mysql', false ),
-			'post_date_gmt' => current_time( 'mysql', true ),
+			'post_date'     => current_time( 'mysqli', false ),
+			'post_date_gmt' => current_time( 'mysqli', true ),
 		),
 		true
 	);

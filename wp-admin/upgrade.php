@@ -38,19 +38,19 @@ if ( 'upgrade_db' === $step ) {
 /**
  * @global string $wp_version             The WordPress version string.
  * @global string $required_php_version   The required PHP version string.
- * @global string $required_mysql_version The required MySQL version string.
+ * @global string $required_mysqli_version The required mysqli version string.
  */
-global $wp_version, $required_php_version, $required_mysql_version;
+global $wp_version, $required_php_version, $required_mysqli_version;
 
 $step = (int) $step;
 
 $php_version   = phpversion();
-$mysql_version = $wpdb->db_version();
+$mysqli_version = $wpdb->db_version();
 $php_compat    = version_compare( $php_version, $required_php_version, '>=' );
-if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysql ) ) {
-	$mysql_compat = true;
+if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysqli ) ) {
+	$mysqli_compat = true;
 } else {
-	$mysql_compat = version_compare( $mysql_version, $required_mysql_version, '>=' );
+	$mysqli_compat = version_compare( $mysqli_version, $required_mysqli_version, '>=' );
 }
 
 header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
@@ -74,7 +74,7 @@ header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option
 <p class="step"><a class="button button-large" href="<?php echo get_option( 'home' ); ?>/"><?php _e( 'Continue' ); ?></a></p>
 
 	<?php
-elseif ( ! $php_compat || ! $mysql_compat ) :
+elseif ( ! $php_compat || ! $mysqli_compat ) :
 	$version_url = sprintf(
 		/* translators: %s: WordPress version. */
 		esc_url( __( 'https://wordpress.org/support/wordpress-version/version-%s/' ) ),
@@ -93,16 +93,16 @@ elseif ( ! $php_compat || ! $mysql_compat ) :
 		$php_update_message .= '</p><p><em>' . $annotation . '</em>';
 	}
 
-	if ( ! $mysql_compat && ! $php_compat ) {
+	if ( ! $mysqli_compat && ! $php_compat ) {
 		$message = sprintf(
-			/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required PHP version number, 4: Minimum required MySQL version number, 5: Current PHP version number, 6: Current MySQL version number. */
-			__( 'You cannot update because <a href="%1$s">WordPress %2$s</a> requires PHP version %3$s or higher and MySQL version %4$s or higher. You are running PHP version %5$s and MySQL version %6$s.' ),
+			/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required PHP version number, 4: Minimum required mysqli version number, 5: Current PHP version number, 6: Current mysqli version number. */
+			__( 'You cannot update because <a href="%1$s">WordPress %2$s</a> requires PHP version %3$s or higher and mysqli version %4$s or higher. You are running PHP version %5$s and mysqli version %6$s.' ),
 			$version_url,
 			$wp_version,
 			$required_php_version,
-			$required_mysql_version,
+			$required_mysqli_version,
 			$php_version,
-			$mysql_version
+			$mysqli_version
 		) . $php_update_message;
 	} elseif ( ! $php_compat ) {
 		$message = sprintf(
@@ -113,14 +113,14 @@ elseif ( ! $php_compat || ! $mysql_compat ) :
 			$required_php_version,
 			$php_version
 		) . $php_update_message;
-	} elseif ( ! $mysql_compat ) {
+	} elseif ( ! $mysqli_compat ) {
 		$message = sprintf(
-			/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required MySQL version number, 4: Current MySQL version number. */
-			__( 'You cannot update because <a href="%1$s">WordPress %2$s</a> requires MySQL version %3$s or higher. You are running version %4$s.' ),
+			/* translators: 1: URL to WordPress release notes, 2: WordPress version number, 3: Minimum required mysqli version number, 4: Current mysqli version number. */
+			__( 'You cannot update because <a href="%1$s">WordPress %2$s</a> requires mysqli version %3$s or higher. You are running version %4$s.' ),
 			$version_url,
 			$wp_version,
-			$required_mysql_version,
-			$mysql_version
+			$required_mysqli_version,
+			$mysqli_version
 		);
 	}
 

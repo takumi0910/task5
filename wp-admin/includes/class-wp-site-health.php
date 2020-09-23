@@ -10,13 +10,13 @@
 class WP_Site_Health {
 	private static $instance = null;
 
-	private $mysql_min_version_check;
-	private $mysql_rec_version_check;
+	private $mysqli_min_version_check;
+	private $mysqli_rec_version_check;
 
 	public $is_mariadb                           = false;
-	private $mysql_server_version                = '';
-	private $health_check_mysql_required_version = '5.5';
-	private $health_check_mysql_rec_version      = '';
+	private $mysqli_server_version                = '';
+	private $health_check_mysqli_required_version = '5.5';
+	private $health_check_mysqli_rec_version      = '';
 
 	public $php_memory_limit;
 
@@ -188,25 +188,25 @@ class WP_Site_Health {
 	private function prepare_sql_data() {
 		global $wpdb;
 
-		if ( $wpdb->use_mysqli ) {
-			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysqli_get_server_info
-			$mysql_server_type = mysqli_get_server_info( $wpdb->dbh );
+		if ( $wpdb->use_mysqlii ) {
+			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysqli_mysqlii_get_server_info
+			$mysqli_server_type = mysqlii_get_server_info( $wpdb->dbh );
 		} else {
-			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysql_get_server_info,PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved
-			$mysql_server_type = mysql_get_server_info( $wpdb->dbh );
+			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysqli_mysqli_get_server_info,PHPCompatibility.Extensions.RemovedExtensions.mysqli_DeprecatedRemoved
+			$mysqli_server_type = mysqli_get_server_info( $wpdb->dbh );
 		}
 
-		$this->mysql_server_version = $wpdb->get_var( 'SELECT VERSION()' );
+		$this->mysqli_server_version = $wpdb->get_var( 'SELECT VERSION()' );
 
-		$this->health_check_mysql_rec_version = '5.6';
+		$this->health_check_mysqli_rec_version = '5.6';
 
-		if ( stristr( $mysql_server_type, 'mariadb' ) ) {
+		if ( stristr( $mysqli_server_type, 'mariadb' ) ) {
 			$this->is_mariadb                     = true;
-			$this->health_check_mysql_rec_version = '10.0';
+			$this->health_check_mysqli_rec_version = '10.0';
 		}
 
-		$this->mysql_min_version_check = version_compare( '5.5', $this->mysql_server_version, '<=' );
-		$this->mysql_rec_version_check = version_compare( $this->health_check_mysql_rec_version, $this->mysql_server_version, '<=' );
+		$this->mysqli_min_version_check = version_compare( '5.5', $this->mysqli_server_version, '<=' );
+		$this->mysqli_rec_version_check = version_compare( $this->health_check_mysqli_rec_version, $this->mysqli_server_version, '<=' );
 	}
 
 	/**
@@ -882,8 +882,8 @@ class WP_Site_Health {
 				'function' => 'mb_check_encoding',
 				'required' => false,
 			),
-			'mysqli'    => array(
-				'function' => 'mysqli_connect',
+			'mysqlii'    => array(
+				'function' => 'mysqlii_connect',
 				'required' => false,
 			),
 			'libsodium' => array(
@@ -1142,7 +1142,7 @@ class WP_Site_Health {
 	 * @return array The test results.
 	 */
 	public function get_test_sql_server() {
-		if ( ! $this->mysql_server_version ) {
+		if ( ! $this->mysqli_server_version ) {
 			$this->prepare_sql_data();
 		}
 
@@ -1170,7 +1170,7 @@ class WP_Site_Health {
 
 		$db_dropin = file_exists( WP_CONTENT_DIR . '/db.php' );
 
-		if ( ! $this->mysql_rec_version_check ) {
+		if ( ! $this->mysqli_rec_version_check ) {
 			$result['status'] = 'recommended';
 
 			$result['label'] = __( 'Outdated SQL server' );
@@ -1178,15 +1178,15 @@ class WP_Site_Health {
 			$result['description'] .= sprintf(
 				'<p>%s</p>',
 				sprintf(
-					/* translators: 1: The database engine in use (MySQL or MariaDB). 2: Database server recommended version number. */
+					/* translators: 1: The database engine in use (mysqli or MariaDB). 2: Database server recommended version number. */
 					__( 'For optimal performance and security reasons, we recommend running %1$s version %2$s or higher. Contact your web hosting company to correct this.' ),
-					( $this->is_mariadb ? 'MariaDB' : 'MySQL' ),
-					$this->health_check_mysql_rec_version
+					( $this->is_mariadb ? 'MariaDB' : 'mysqli' ),
+					$this->health_check_mysqli_rec_version
 				)
 			);
 		}
 
-		if ( ! $this->mysql_min_version_check ) {
+		if ( ! $this->mysqli_min_version_check ) {
 			$result['status'] = 'critical';
 
 			$result['label']          = __( 'Severely outdated SQL server' );
@@ -1195,10 +1195,10 @@ class WP_Site_Health {
 			$result['description'] .= sprintf(
 				'<p>%s</p>',
 				sprintf(
-					/* translators: 1: The database engine in use (MySQL or MariaDB). 2: Database server minimum version number. */
+					/* translators: 1: The database engine in use (mysqli or MariaDB). 2: Database server minimum version number. */
 					__( 'WordPress requires %1$s version %2$s or higher. Contact your web hosting company to correct this.' ),
-					( $this->is_mariadb ? 'MariaDB' : 'MySQL' ),
-					$this->health_check_mysql_required_version
+					( $this->is_mariadb ? 'MariaDB' : 'mysqli' ),
+					$this->health_check_mysqli_required_version
 				)
 			);
 		}
@@ -1211,7 +1211,7 @@ class WP_Site_Health {
 						/* translators: 1: The name of the drop-in. 2: The name of the database engine. */
 						__( 'You are using a %1$s drop-in which might mean that a %2$s database is not being used.' ),
 						'<code>wp-content/db.php</code>',
-						( $this->is_mariadb ? 'MariaDB' : 'MySQL' )
+						( $this->is_mariadb ? 'MariaDB' : 'mysqli' )
 					),
 					array(
 						'code' => true,
@@ -1233,7 +1233,7 @@ class WP_Site_Health {
 	public function get_test_utf8mb4_support() {
 		global $wpdb;
 
-		if ( ! $this->mysql_server_version ) {
+		if ( ! $this->mysqli_server_version ) {
 			$this->prepare_sql_data();
 		}
 
@@ -1253,27 +1253,27 @@ class WP_Site_Health {
 		);
 
 		if ( ! $this->is_mariadb ) {
-			if ( version_compare( $this->mysql_server_version, '5.5.3', '<' ) ) {
+			if ( version_compare( $this->mysqli_server_version, '5.5.3', '<' ) ) {
 				$result['status'] = 'recommended';
 
-				$result['label'] = __( 'utf8mb4 requires a MySQL update' );
+				$result['label'] = __( 'utf8mb4 requires a mysqli update' );
 
 				$result['description'] .= sprintf(
 					'<p>%s</p>',
 					sprintf(
 						/* translators: %s: Version number. */
-						__( 'WordPress&#8217; utf8mb4 support requires MySQL version %s or greater. Please contact your server administrator.' ),
+						__( 'WordPress&#8217; utf8mb4 support requires mysqli version %s or greater. Please contact your server administrator.' ),
 						'5.5.3'
 					)
 				);
 			} else {
 				$result['description'] .= sprintf(
 					'<p>%s</p>',
-					__( 'Your MySQL version supports utf8mb4.' )
+					__( 'Your mysqli version supports utf8mb4.' )
 				);
 			}
 		} else { // MariaDB introduced utf8mb4 support in 5.5.0.
-			if ( version_compare( $this->mysql_server_version, '5.5.0', '<' ) ) {
+			if ( version_compare( $this->mysqli_server_version, '5.5.0', '<' ) ) {
 				$result['status'] = 'recommended';
 
 				$result['label'] = __( 'utf8mb4 requires a MariaDB update' );
@@ -1294,21 +1294,21 @@ class WP_Site_Health {
 			}
 		}
 
-		if ( $wpdb->use_mysqli ) {
-			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysqli_get_client_info
-			$mysql_client_version = mysqli_get_client_info();
+		if ( $wpdb->use_mysqlii ) {
+			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysqli_mysqlii_get_client_info
+			$mysqli_client_version = mysqlii_get_client_info();
 		} else {
-			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysql_get_client_info,PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved
-			$mysql_client_version = mysql_get_client_info();
+			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysqli_mysqli_get_client_info,PHPCompatibility.Extensions.RemovedExtensions.mysqli_DeprecatedRemoved
+			$mysqli_client_version = mysqli_get_client_info();
 		}
 
 		/*
-		 * libmysql has supported utf8mb4 since 5.5.3, same as the MySQL server.
-		 * mysqlnd has supported utf8mb4 since 5.0.9.
+		 * libmysqli has supported utf8mb4 since 5.5.3, same as the mysqli server.
+		 * mysqlind has supported utf8mb4 since 5.0.9.
 		 */
-		if ( false !== strpos( $mysql_client_version, 'mysqlnd' ) ) {
-			$mysql_client_version = preg_replace( '/^\D+([\d.]+).*/', '$1', $mysql_client_version );
-			if ( version_compare( $mysql_client_version, '5.0.9', '<' ) ) {
+		if ( false !== strpos( $mysqli_client_version, 'mysqlind' ) ) {
+			$mysqli_client_version = preg_replace( '/^\D+([\d.]+).*/', '$1', $mysqli_client_version );
+			if ( version_compare( $mysqli_client_version, '5.0.9', '<' ) ) {
 				$result['status'] = 'recommended';
 
 				$result['label'] = __( 'utf8mb4 requires a newer client library' );
@@ -1317,14 +1317,14 @@ class WP_Site_Health {
 					'<p>%s</p>',
 					sprintf(
 						/* translators: 1: Name of the library, 2: Number of version. */
-						__( 'WordPress&#8217; utf8mb4 support requires MySQL client library (%1$s) version %2$s or newer. Please contact your server administrator.' ),
-						'mysqlnd',
+						__( 'WordPress&#8217; utf8mb4 support requires mysqli client library (%1$s) version %2$s or newer. Please contact your server administrator.' ),
+						'mysqlind',
 						'5.0.9'
 					)
 				);
 			}
 		} else {
-			if ( version_compare( $mysql_client_version, '5.5.3', '<' ) ) {
+			if ( version_compare( $mysqli_client_version, '5.5.3', '<' ) ) {
 				$result['status'] = 'recommended';
 
 				$result['label'] = __( 'utf8mb4 requires a newer client library' );
@@ -1333,8 +1333,8 @@ class WP_Site_Health {
 					'<p>%s</p>',
 					sprintf(
 						/* translators: 1: Name of the library, 2: Number of version. */
-						__( 'WordPress&#8217; utf8mb4 support requires MySQL client library (%1$s) version %2$s or newer. Please contact your server administrator.' ),
-						'libmysql',
+						__( 'WordPress&#8217; utf8mb4 support requires mysqli client library (%1$s) version %2$s or newer. Please contact your server administrator.' ),
+						'libmysqli',
 						'5.5.3'
 					)
 				);
@@ -2119,7 +2119,7 @@ class WP_Site_Health {
 					'test'  => 'sql_server',
 				),
 				'utf8mb4_support'           => array(
-					'label' => __( 'MySQL utf8mb4 support' ),
+					'label' => __( 'mysqli utf8mb4 support' ),
 					'test'  => 'utf8mb4_support',
 				),
 				'https_status'              => array(

@@ -799,10 +799,10 @@ class WP_Debug_Data {
 
 		// Populate the database debug fields.
 		if ( is_resource( $wpdb->dbh ) ) {
-			// Old mysql extension.
-			$extension = 'mysql';
+			// Old mysqli extension.
+			$extension = 'mysqli';
 		} elseif ( is_object( $wpdb->dbh ) ) {
-			// mysqli or PDO.
+			// mysqlii or PDO.
 			$extension = get_class( $wpdb->dbh );
 		} else {
 			// Unknown sql extension.
@@ -811,11 +811,11 @@ class WP_Debug_Data {
 
 		$server = $wpdb->get_var( 'SELECT VERSION()' );
 
-		if ( isset( $wpdb->use_mysqli ) && $wpdb->use_mysqli ) {
+		if ( isset( $wpdb->use_mysqlii ) && $wpdb->use_mysqlii ) {
 			$client_version = $wpdb->dbh->client_info;
 		} else {
-			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysql_get_client_info,PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved
-			if ( preg_match( '|[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}|', mysql_get_client_info(), $matches ) ) {
+			// phpcs:ignore WordPress.DB.RestrictedFunctions.mysqli_mysqli_get_client_info,PHPCompatibility.Extensions.RemovedExtensions.mysqli_DeprecatedRemoved
+			if ( preg_match( '|[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}|', mysqli_get_client_info(), $matches ) ) {
 				$client_version = $matches[0];
 			} else {
 				$client_version = null;

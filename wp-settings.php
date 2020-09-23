@@ -26,15 +26,15 @@ define( 'WPINC', 'wp-includes' );
  * @global int    $wp_db_version          WordPress database version.
  * @global string $tinymce_version        TinyMCE version.
  * @global string $required_php_version   The required PHP version string.
- * @global string $required_mysql_version The required MySQL version string.
+ * @global string $required_mysqli_version The required mysqli version string.
  * @global string $wp_local_package       Locale code of the package.
  */
-global $wp_version, $wp_db_version, $tinymce_version, $required_php_version, $required_mysql_version, $wp_local_package;
+global $wp_version, $wp_db_version, $tinymce_version, $required_php_version, $required_mysqli_version, $wp_local_package;
 require ABSPATH . WPINC . '/version.php';
 require ABSPATH . WPINC . '/load.php';
 
-// Check for the required PHP version and for the MySQL extension or a database drop-in.
-wp_check_php_mysql_versions();
+// Check for the required PHP version and for the mysqli extension or a database drop-in.
+wp_check_php_mysqli_versions();
 
 // Include files required for initialization.
 require ABSPATH . WPINC . '/class-wp-paused-extensions-storage.php';

@@ -1772,7 +1772,7 @@ final class _WP_Editors {
 		$results = array();
 		foreach ( $posts as $post ) {
 			if ( 'post' === $post->post_type ) {
-				$info = mysql2date( __( 'Y/m/d' ), $post->post_date );
+				$info = mysqli2date( __( 'Y/m/d' ), $post->post_date );
 			} else {
 				$info = $pts[ $post->post_type ]->labels->singular_name;
 			}

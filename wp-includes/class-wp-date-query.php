@@ -542,7 +542,7 @@ class WP_Date_Query {
 	 *
 	 * @since 3.7.0
 	 *
-	 * @return string MySQL WHERE clause.
+	 * @return string mysqli WHERE clause.
 	 */
 	public function get_sql() {
 		$sql = $this->get_sql_clauses();
@@ -728,17 +728,17 @@ class WP_Date_Query {
 
 		// Range queries.
 		if ( ! empty( $query['after'] ) ) {
-			$where_parts[] = $wpdb->prepare( "$column $gt %s", $this->build_mysql_datetime( $query['after'], ! $inclusive ) );
+			$where_parts[] = $wpdb->prepare( "$column $gt %s", $this->build_mysqli_datetime( $query['after'], ! $inclusive ) );
 		}
 		if ( ! empty( $query['before'] ) ) {
-			$where_parts[] = $wpdb->prepare( "$column $lt %s", $this->build_mysql_datetime( $query['before'], $inclusive ) );
+			$where_parts[] = $wpdb->prepare( "$column $lt %s", $this->build_mysqli_datetime( $query['before'], $inclusive ) );
 		}
 		// Specific value queries.
 
 		$date_units = array(
 			'YEAR'           => array( 'year' ),
 			'MONTH'          => array( 'month', 'monthnum' ),
-			'_wp_mysql_week' => array( 'week', 'w' ),
+			'_wp_mysqli_week' => array( 'week', 'w' ),
 			'DAYOFYEAR'      => array( 'dayofyear' ),
 			'DAYOFMONTH'     => array( 'day' ),
 			'DAYOFWEEK'      => array( 'dayofweek' ),
@@ -752,8 +752,8 @@ class WP_Date_Query {
 					$value = $this->build_value( $compare, $query[ $query_part ] );
 					if ( $value ) {
 						switch ( $sql_part ) {
-							case '_wp_mysql_week':
-								$where_parts[] = _wp_mysql_week( $column ) . " $compare $value";
+							case '_wp_mysqli_week':
+								$where_parts[] = _wp_mysqli_week( $column ) . " $compare $value";
 								break;
 							case 'WEEKDAY':
 								$where_parts[] = "$sql_part( $column ) + 1 $compare $value";
@@ -849,7 +849,7 @@ class WP_Date_Query {
 	}
 
 	/**
-	 * Builds a MySQL format date/time based on some query parameters.
+	 * Builds a mysqli format date/time based on some query parameters.
 	 *
 	 * You can pass an array of values (year, month, etc.) with missing parameter values being defaulted to
 	 * either the maximum or minimum values (controlled by the $default_to parameter). Alternatively you can
@@ -860,11 +860,11 @@ class WP_Date_Query {
 	 * @param string|array $datetime       An array of parameters or a strotime() string
 	 * @param bool         $default_to_max Whether to round up incomplete dates. Supported by values
 	 *                                     of $datetime that are arrays, or string values that are a
-	 *                                     subset of MySQL date format ('Y', 'Y-m', 'Y-m-d', 'Y-m-d H:i').
+	 *                                     subset of mysqli date format ('Y', 'Y-m', 'Y-m-d', 'Y-m-d H:i').
 	 *                                     Default: false.
-	 * @return string|false A MySQL format date/time or false on failure
+	 * @return string|false A mysqli format date/time or false on failure
 	 */
-	public function build_mysql_datetime( $datetime, $default_to_max = false ) {
+	public function build_mysqli_datetime( $datetime, $default_to_max = false ) {
 		if ( ! is_array( $datetime ) ) {
 
 			/*

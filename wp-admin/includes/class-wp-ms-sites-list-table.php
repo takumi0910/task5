@@ -475,7 +475,7 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 			$date = __( 'Y/m/d g:i:s a' );
 		}
 
-		echo ( '0000-00-00 00:00:00' === $blog['last_updated'] ) ? __( 'Never' ) : mysql2date( $date, $blog['last_updated'] );
+		echo ( '0000-00-00 00:00:00' === $blog['last_updated'] ) ? __( 'Never' ) : mysqli2date( $date, $blog['last_updated'] );
 	}
 
 	/**
@@ -499,7 +499,7 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 		if ( '0000-00-00 00:00:00' === $blog['registered'] ) {
 			echo '&#x2014;';
 		} else {
-			echo mysql2date( $date, $blog['registered'] );
+			echo mysqli2date( $date, $blog['registered'] );
 		}
 	}
 

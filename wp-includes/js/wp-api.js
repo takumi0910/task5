@@ -306,7 +306,7 @@
 			/**
 			 * Mixin for all content that is time stamped.
 			 *
-			 * This mixin converts between mysql timestamps and JavaScript Dates when syncing a model
+			 * This mixin converts between mysqli timestamps and JavaScript Dates when syncing a model
 			 * to or from the server. For example, a date stored as `2015-12-27T21:22:24` on the server
 			 * gets expanded to `Sun Dec 27 2015 14:22:24 GMT-0700 (MST)` when the model is fetched.
 			 *

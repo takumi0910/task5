@@ -885,7 +885,7 @@ $_new_bundled_files = array(
  * @global wpdb               $wpdb                   WordPress database abstraction object.
  * @global string             $wp_version
  * @global string             $required_php_version
- * @global string             $required_mysql_version
+ * @global string             $required_mysqli_version
  *
  * @param string $from New release unzipped path.
  * @param string $to   Path to old WordPress installation.
@@ -930,7 +930,7 @@ function update_core( $from, $to ) {
 	}
 
 	/*
-	 * Import $wp_version, $required_php_version, and $required_mysql_version from the new version.
+	 * Import $wp_version, $required_php_version, and $required_mysqli_version from the new version.
 	 * DO NOT globalise any variables imported from `version-current.php` in this function.
 	 *
 	 * BC Note: $wp_filesystem->wp_content_dir() returned unslashed pre-2.8
@@ -946,17 +946,17 @@ function update_core( $from, $to ) {
 	$wp_filesystem->delete( $versions_file );
 
 	$php_version       = phpversion();
-	$mysql_version     = $wpdb->db_version();
+	$mysqli_version     = $wpdb->db_version();
 	$old_wp_version    = $GLOBALS['wp_version']; // The version of WordPress we're updating from.
 	$development_build = ( false !== strpos( $old_wp_version . $wp_version, '-' ) ); // A dash in the version indicates a development release.
 	$php_compat        = version_compare( $php_version, $required_php_version, '>=' );
-	if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysql ) ) {
-		$mysql_compat = true;
+	if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysqli ) ) {
+		$mysqli_compat = true;
 	} else {
-		$mysql_compat = version_compare( $mysql_version, $required_mysql_version, '>=' );
+		$mysqli_compat = version_compare( $mysqli_version, $required_mysqli_version, '>=' );
 	}
 
-	if ( ! $mysql_compat || ! $php_compat ) {
+	if ( ! $mysqli_compat || ! $php_compat ) {
 		$wp_filesystem->delete( $from, true );
 	}
 
@@ -978,17 +978,17 @@ function update_core( $from, $to ) {
 		}
 	}
 
-	if ( ! $mysql_compat && ! $php_compat ) {
+	if ( ! $mysqli_compat && ! $php_compat ) {
 		return new WP_Error(
-			'php_mysql_not_compatible',
+			'php_mysqli_not_compatible',
 			sprintf(
-				/* translators: 1: WordPress version number, 2: Minimum required PHP version number, 3: Minimum required MySQL version number, 4: Current PHP version number, 5: Current MySQL version number. */
-				__( 'The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.' ),
+				/* translators: 1: WordPress version number, 2: Minimum required PHP version number, 3: Minimum required mysqli version number, 4: Current PHP version number, 5: Current mysqli version number. */
+				__( 'The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher and mysqli version %3$s or higher. You are running PHP version %4$s and mysqli version %5$s.' ),
 				$wp_version,
 				$required_php_version,
-				$required_mysql_version,
+				$required_mysqli_version,
 				$php_version,
-				$mysql_version
+				$mysqli_version
 			) . $php_update_message
 		);
 	} elseif ( ! $php_compat ) {
@@ -1002,15 +1002,15 @@ function update_core( $from, $to ) {
 				$php_version
 			) . $php_update_message
 		);
-	} elseif ( ! $mysql_compat ) {
+	} elseif ( ! $mysqli_compat ) {
 		return new WP_Error(
-			'mysql_not_compatible',
+			'mysqli_not_compatible',
 			sprintf(
-				/* translators: 1: WordPress version number, 2: Minimum required MySQL version number, 3: Current MySQL version number. */
-				__( 'The update cannot be installed because WordPress %1$s requires MySQL version %2$s or higher. You are running version %3$s.' ),
+				/* translators: 1: WordPress version number, 2: Minimum required mysqli version number, 3: Current mysqli version number. */
+				__( 'The update cannot be installed because WordPress %1$s requires mysqli version %2$s or higher. You are running version %3$s.' ),
 				$wp_version,
-				$required_mysql_version,
-				$mysql_version
+				$required_mysqli_version,
+				$mysqli_version
 			)
 		);
 	}

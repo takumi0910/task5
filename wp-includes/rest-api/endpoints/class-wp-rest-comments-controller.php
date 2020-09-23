@@ -601,7 +601,7 @@ class WP_REST_Comments_Controller extends WP_REST_Controller {
 
 		// Setting remaining values before wp_insert_comment so we can use wp_allow_comment().
 		if ( ! isset( $prepared_comment['comment_date_gmt'] ) ) {
-			$prepared_comment['comment_date_gmt'] = current_time( 'mysql', true );
+			$prepared_comment['comment_date_gmt'] = current_time( 'mysqli', true );
 		}
 
 		// Set author data if the user's logged in.
@@ -1075,11 +1075,11 @@ class WP_REST_Comments_Controller extends WP_REST_Controller {
 		}
 
 		if ( in_array( 'date', $fields, true ) ) {
-			$data['date'] = mysql_to_rfc3339( $comment->comment_date );
+			$data['date'] = mysqli_to_rfc3339( $comment->comment_date );
 		}
 
 		if ( in_array( 'date_gmt', $fields, true ) ) {
-			$data['date_gmt'] = mysql_to_rfc3339( $comment->comment_date_gmt );
+			$data['date_gmt'] = mysqli_to_rfc3339( $comment->comment_date_gmt );
 		}
 
 		if ( in_array( 'content', $fields, true ) ) {
